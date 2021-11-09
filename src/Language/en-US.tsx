@@ -13,5 +13,8 @@ export default {
     forgotPassword: 'Forgot Password ?',
     login: 'Login',
     guest: 'Guess',
-    search: 'Search...'
+    search: 'Search...',
+    home: 'Home',
+    settings: 'Settings',
+    account: 'Account'
 }

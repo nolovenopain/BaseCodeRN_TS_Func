@@ -13,5 +13,8 @@ export default {
     forgotPassword: 'Quên mật khẩu ?',
     login: 'Đăng nhập',
     guest: 'Tài khoản khách',
-    search: 'Tìm kiếm...'
+    search: 'Tìm kiếm...',
+    home: 'Trang chủ',
+    settings: 'Cài đặt',
+    account: 'Tài khoản'
 }

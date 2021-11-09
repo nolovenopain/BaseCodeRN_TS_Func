@@ -4,11 +4,15 @@ import { HomeStack } from './homeStack';
 import { AccountStack } from './accountStack';
 import { SettingsStack } from './settingsStack';
 import { Ionicons } from '../Components';
+import { useSelector } from 'react-redux';
+import { translate } from '../Language';
+import { ApplicationState } from '../Redux';
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabStack = () => {
-    return (
+    const language = useSelector((state: ApplicationState) => state.settingsReducer.language)
+    return ( 
         <Tab.Navigator 
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -37,9 +41,9 @@ export const BottomTabStack = () => {
             })}
             initialRouteName='HomeStack'
         >
-            <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: 'Home' }}/>
-            <Tab.Screen name="AccountStack" component={AccountStack} options={{ title: 'Account' }}/>
-            <Tab.Screen name="SettingsStack" component={SettingsStack} options={{ title: 'Settings' }}/>
+            <Tab.Screen name="HomeStack" component={HomeStack} options={{ title: translate('home', language) }}/>
+            <Tab.Screen name="AccountStack" component={AccountStack} options={{ title: translate('account', language) }}/>
+            <Tab.Screen name="SettingsStack" component={SettingsStack} options={{ title: translate('settings', language) }}/>
         </Tab.Navigator>
     )
 }
