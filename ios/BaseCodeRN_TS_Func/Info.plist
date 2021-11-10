@@ -69,6 +69,30 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>ProximaNovaLg_Black.ttf</string>
+		<string>ProximaNovaLg_BlackItalic.ttf</string>
+		<string>ProximaNovaLg_Bold_Italic.ttf</string>
+		<string>ProximaNovaLg_Bold.ttf</string>
+		<string>ProximaNovaLg_Light_Italic.ttf</string>
+		<string>ProximaNovaLg_Light.ttf</string>
+		<string>ProximaNovaLg_Regular_Italic.ttf</string>
+		<string>ProximaNovaLg_Regular.ttf</string>
+		<string>ProximaNovaLg_Semibold_Italic.ttf</string>
+		<string>ProximaNovaLg_Semibold.ttf</string>
+		<string>ProximaNovaLg_Thin_Italic.ttf</string>
+		<string>ProximaNovaLg_Thin.ttf</string>
+		<string>Roboto-Black.ttf</string>
+		<string>Roboto-BlackItalic.ttf</string>
+		<string>Roboto-Bold.ttf</string>
+		<string>Roboto-BoldItalic.ttf</string>
+		<string>Roboto-Italic.ttf</string>
+		<string>Roboto-Light.ttf</string>
+		<string>Roboto-LightItalic.ttf</string>
+		<string>Roboto-Medium.ttf</string>
+		<string>Roboto-MediumItalic.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+		<string>Roboto-Thin.ttf</string>
+		<string>Roboto-ThinItalic.ttf</string>
 	</array>
 </dict>
 </plist>
