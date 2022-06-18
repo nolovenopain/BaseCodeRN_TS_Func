@@ -1,25 +1,27 @@
-import { AlertCus } from "../Components"
-
 export const sessionExpired = () => {
-    AlertCus.Alert('Lỗi', 'sessionExpired', () => {})
-}
+  return 'Yêu cầu hết hạn, mời bạn đăng nhập lại';
+};
 
 export const badRequest = () => {
-    AlertCus.Alert('Lỗi', 'badRequest', () => {})
-}
+  return 'Lỗi gửi yêu cầu';
+};
 
 export const serverError = () => {
-    AlertCus.Alert('Lỗi', 'serverError', () => {})
-}
+  return 'Lỗi dữ liệu';
+};
 
 export const notFound = () => {
-    AlertCus.Alert('Lỗi', 'notFound', () => {})
-}
+  return 'Không tìm thấy dữ liệu';
+};
 
 export const notPermission = () => {
-    AlertCus.Alert('Lỗi', 'notPermission', () => {})
-}
+  return 'Bạn không có quyền truy cập chức năng này';
+};
+
+export const missingToken = () => {
+  return 'Bạn không có quyền truy cập chức năng này';
+};
 
 export const otherError = () => {
-    AlertCus.Alert('Lỗi', 'otherError', () => {})
-}
+  return 'Không tìm thấy dữ liệu / Không thể truy cập chức năng này';
+};

@@ -2,7 +2,7 @@ const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const nameRegex = /^[a-zA-Z0-9]+(([',. -][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/;
 const prefixEmailRegex = /^[a-zA-Z0-9]+(([_.-][a-zA-Z0-9 ])?[a-zA-Z0-9]*)*$/;
 const numberRegex = /^[0-9]*$/;
-const phoneRegex = /((09|03|07|08|05)+([0-9]{8})\b)/;
+const phoneRegex = /((09|03|07|08|05|02[0-9])+([0-9]{8})\b)/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/
 
 const removeAscent = (str: string) => {

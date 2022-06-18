@@ -8,31 +8,35 @@
  * @format
  */
 
-import React, { useEffect } from 'react';
-import { StatusBar, useColorScheme } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import AppNavigation from './src/Navigations/appNavigation';
-import { Provider } from 'react-redux';
-import { store } from './src/Redux';
- 
+import React, {useEffect} from 'react';
+import {StatusBar, useColorScheme} from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Provider} from 'react-redux';
+import {store} from './src/Redux';
+import SplashScreen from 'react-native-splash-screen';
+import {RootComponent} from './src/RootComponent';
+
 const Stack = createNativeStackNavigator();
- 
+
 const App = () => {
-    const isDarkMode = useColorScheme() === 'dark';
- 
-    const backgroundStyle = {
-        backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-        flex: 1
-    };
- 
-    return (
-        <Provider store={store}>
-            <StatusBar barStyle='dark-content' />
-            <AppNavigation/>
-        </Provider>
-    );
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
+  const isDarkMode = useColorScheme() === 'dark';
+
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
+  };
+
+  return (
+    <Provider store={store}>
+      <StatusBar barStyle="dark-content" />
+      <RootComponent />
+    </Provider>
+  );
 };
- 
+
 export default App;
- 
