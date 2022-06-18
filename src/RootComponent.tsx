@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {Dispatch, useEffect, useState} from 'react';
 import AppNavigation from './Navigations/appNavigation';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,8 +7,8 @@ import {
   ApplicationState,
   onCheckInternetConnection,
   onUpdateAccountLogin,
-  onUpdateProvinceDistrict,
   onUpdateUser,
+  store,
   UserModel,
 } from './Redux';
 import {ModalInternetConnectionStatus} from './Components';
@@ -16,7 +16,7 @@ import {LocalStorage} from './Utils';
 
 export const RootComponent = () => {
   const netInfo = useNetInfo();
-  const dispatch = useDispatch();
+  const dispatch = store.dispatch as typeof store.dispatch | Dispatch<any>;;
   const globalState = useSelector(
     (state: ApplicationState) => state.globalReducer,
   );
@@ -52,14 +52,13 @@ export const RootComponent = () => {
   }, []);
 
   const getInfo = async () => {
-    dispatch(onUpdateProvinceDistrict());
     const user = (await LocalStorage.getUserSaved()) as UserModel;
     if (user.Token) {
       await dispatch(onUpdateUser(user as UserModel, false));
     }
     const accountLogin =
       (await LocalStorage.getAccountRemember()) as AccountLogin;
-    if (accountLogin.phone) {
+    if (accountLogin.username) {
       await dispatch(onUpdateAccountLogin(accountLogin as AccountLogin, false));
     }
     setIsReady(true);
