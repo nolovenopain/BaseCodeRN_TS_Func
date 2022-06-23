@@ -7,7 +7,7 @@ interface TextCus {
   scaleFontSize?: number;
   text?: string;
   style?: StyleProp<TextStyle>;
-  children: string | null;
+  children: React.ReactNode;
   numberOfLines?: number;
 }
 
@@ -125,7 +125,7 @@ export const TextCus: React.FC<TextCus> = ({
   var _style = style;
   var styleCus = StyleSheet.flatten([
     {
-      color: 'black',
+      color: Color.baseText,
       fontSize: 14,
       fontFamily: FontCustom.Arial,
     },

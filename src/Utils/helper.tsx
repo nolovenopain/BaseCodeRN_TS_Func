@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import React, {Dispatch} from 'react';
 import deviceInfoModule from 'react-native-device-info';
 import {
   badRequest,
@@ -10,8 +10,8 @@ import {
 } from './errors';
 import {Platform} from 'react-native';
 import {Image} from 'react-native-image-crop-picker';
-import { AxiosResponse } from 'axios';
-import { onUserLogout } from '../Redux';
+import {AxiosResponse} from 'axios';
+import {onUserLogout} from '../Redux';
 
 export const createFormData = (images: Image[], body: any) => {
   let formData = new FormData();
@@ -21,7 +21,9 @@ export const createFormData = (images: Image[], body: any) => {
       const singleImage = {
         uri: Platform.select({
           ios: image.path,
-          android: image.path.replace('file://', ''),
+          android: image.path.startsWith('file://')
+            ? image.path
+            : `file://${image.path}`,
         }),
         name: image.filename,
         type: image.mime,

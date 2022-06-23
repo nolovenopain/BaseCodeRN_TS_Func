@@ -2,12 +2,12 @@ import axios from 'axios';
 import {Dispatch} from 'react';
 import Config from 'react-native-config';
 import {UserModel} from '..';
-import { FORGOT_PASSWORD, LOGIN, PROFILE } from '../../Constants';
-import { navigate } from '../../Navigations/rootNavigations';
-import { checkStatus } from '../../Utils';
-import { AccountLogin } from '../models';
+import {FORGOT_PASSWORD, LOGIN, PROFILE} from '../../Constants';
+import {navigate} from '../../Navigations/rootNavigations';
+import {checkStatus} from '../../Utils';
+import {AccountLogin} from '../models';
 import AxiosInstance from '../setupAxios';
-import { GlobalAction } from './globalAction';
+import {GlobalAction} from './globalAction';
 
 export interface Address {
   displayAddress: string;
@@ -135,7 +135,12 @@ export const onUpdateUser = (user: UserModel, isSaveLocalStore: boolean) => {
   };
 };
 
-export const onUserLogin = (email: string, password: string, isRemember: boolean, isSaveLocalStore: boolean,) => {
+export const onUserLogin = (
+  email: string,
+  password: string,
+  isRemember: boolean,
+  isSaveLocalStore: boolean,
+) => {
   return async (dispatch: Dispatch<UserAction | GlobalAction>) => {
     try {
       dispatch({
@@ -143,18 +148,12 @@ export const onUserLogin = (email: string, password: string, isRemember: boolean
         payload: true,
         loadingTitle: '',
       });
-      const response = await AxiosInstance.post<UserModel>(
-        LOGIN,
-        {
-          email,
-          password,
-        },
-      );
+      const response = await AxiosInstance.post<UserModel>(LOGIN, {
+        email,
+        password,
+      });
       if (!response) {
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: 'Đăng nhập thất bại',
-        });
+        return {success: false, errMess: 'Đăng nhập thất bại'};
       } else {
         const resp = await checkStatus(response, dispatch);
         if (!resp.error) {
@@ -179,23 +178,20 @@ export const onUserLogin = (email: string, password: string, isRemember: boolean
               isRemember,
             });
           navigate('BottomStack' as never, {} as never);
+          return {success: true, errMess: ''};
         } else {
-          dispatch({
-            type: 'ON_USER_ERROR',
-            payload: resp.message,
-          });
+          return {success: false, errMess: resp.message};
         }
       }
     } catch (error) {
+      let errMess = '';
       if (axios.isAxiosError(error)) {
         const resp = await checkStatus(error.response, dispatch);
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: resp.message,
-        });
+        errMess = resp.message;
       } else {
         console.log(error);
       }
+      return {success: false, errMess};
     } finally {
       dispatch({
         type: 'TOGGLE_LOADING',
@@ -250,10 +246,7 @@ export const onUserSignup = (
       );
 
       if (!response) {
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: 'Đăng ký thất bại',
-        });
+        return {success: false, errMess: 'Đăng ký thất bại', succMess: ''};
       } else {
         const resp = await checkStatus(response, dispatch);
         if (!resp.error) {
@@ -261,28 +254,25 @@ export const onUserSignup = (
             type: 'ON_USER_SIGN_UP',
             payload: resp.data,
           });
-          dispatch({
-            type: 'ON_USER_SUCCESS',
-            payload:
+          return {
+            success: true,
+            errMess: '',
+            succMess:
               'Bạn đã đăng ký tài khoản thành công! Tài khoản của bạn sẽ được kích hoạt ngay khi hồ sơ được phê duyệt. Vui lòng liên hệ CSKH để được hỗ trợ',
-          });
+          };
         } else {
-          dispatch({
-            type: 'ON_USER_ERROR',
-            payload: resp.message,
-          });
+          return {success: false, errMess: resp.message, succMess: ''};
         }
       }
     } catch (error) {
+      let errMess = '';
       if (axios.isAxiosError(error)) {
         const resp = await checkStatus(error.response, dispatch);
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: resp.message,
-        });
+        errMess = resp.message;
       } else {
         console.log(error);
       }
+      return {success: false, errMess, succMess: ''};
     } finally {
       dispatch({
         type: 'TOGGLE_LOADING',
@@ -303,34 +293,24 @@ export const onUserForgotPassword = (Email: string) => {
       });
       const response = await AxiosInstance.post(FORGOT_PASSWORD, {Email});
       if (!response) {
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: 'Gửi email thất bại',
-        });
-        return null;
+        return {success: false, errMess: 'Gửi email thất bại', succMess: ''};
       } else {
         const resp = await checkStatus(response, dispatch);
         if (!resp.error) {
-          return resp.data;
+          return {success: true, succMess: resp.data.Message, errMess: ''};
         } else {
-          dispatch({
-            type: 'ON_USER_ERROR',
-            payload: resp.message,
-          });
-          return null;
+          return {success: false, errMess: resp.message, succMess: ''};
         }
       }
     } catch (error) {
+      let errMess = '';
       if (axios.isAxiosError(error)) {
         const resp = await checkStatus(error.response, dispatch);
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: resp.message,
-        });
+        errMess = resp.message;
       } else {
         console.log(error);
       }
-      return null;
+      return {success: false, errMess, succMess: ''};
     } finally {
       dispatch({
         type: 'TOGGLE_LOADING',
@@ -342,52 +322,43 @@ export const onUserForgotPassword = (Email: string) => {
 };
 
 export const onGetUserProfile = () => {
-  return async (
-    dispatch: Dispatch<UserAction | GlobalAction>,
-  ) => {
+  return async (dispatch: Dispatch<UserAction | GlobalAction>) => {
     try {
       const response = await AxiosInstance.get(PROFILE);
       if (!response) {
-        dispatch({
-          type: 'ON_USER_ERROR',
-          payload: 'Không tải được thông tin tài khoản',
-        });
-        return {};
+        return {success: false, errMess: 'Không tải được thông tin tài khoản'};
       } else {
         const resp = await checkStatus(response, dispatch);
         if (!resp.error) {
           if (resp.data.Data.IsActive == 1) {
-            return resp.data.Data;
+            return {
+              user: resp.data.Data.UserProfile,
+              success: true,
+              errMess: '',
+            };
           } else {
             onUserLogout();
-            return {};
+            return {success: false, errMess: ''};
           }
         } else {
-          resp.status != 401 &&
-            resp.status != 403 &&
-            resp.status != 417 &&
-            dispatch({
-              type: 'ON_USER_ERROR',
-              payload: resp.message,
-            });
-          return {};
+          let errMess = '';
+          if (resp.status != 401 && resp.status != 403 && resp.status != 417) {
+            errMess = resp.message;
+          }
+          return {success: false, errMess};
         }
       }
     } catch (error) {
-      console.log(error);
+      let errMess = '';
       if (axios.isAxiosError(error)) {
         const resp = await checkStatus(error.response, dispatch);
-        resp.status != 401 &&
-          resp.status != 403 &&
-          resp.status != 417 &&
-          dispatch({
-            type: 'ON_USER_ERROR',
-            payload: resp.message,
-          });
+        if (resp.status != 401 && resp.status != 403 && resp.status != 417) {
+          errMess = resp.message;
+        }
       } else {
         console.log(error);
       }
-      return {};
+      return {success: false, errMess};
     } finally {
       dispatch({
         type: 'TOGGLE_LOADING',
