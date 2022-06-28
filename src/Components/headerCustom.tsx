@@ -21,6 +21,7 @@ interface HeaderCus {
   styleIconBack?: {};
   styleIconClose?: {};
   styleRightComponent?: {};
+  children?: ReactNode;
 }
 
 export const HeaderCus: React.FC<HeaderCus> = ({
@@ -35,28 +36,14 @@ export const HeaderCus: React.FC<HeaderCus> = ({
   styleIconBack,
   styleIconClose,
   styleRightComponent,
+  children,
 }) => {
-  const props = {
-    isBack,
-    isClose,
-    rightComponent,
-    backgroundGradient,
-    clearForm,
-    title,
-    styleContainer,
-    styleTitle,
-    styleIconBack,
-    styleIconClose,
-    styleRightComponent,
-  };
-
   const goback = () => {
     clearForm ? clearForm() : null;
     goBack();
   };
 
-  const _render = (props: any) => {
-    var title = props.title || '';
+  const _render = () => {
     return (
       <View
         style={{
@@ -64,8 +51,8 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           width,
           justifyContent: 'center',
         }}>
-        {props.children != null ? (
-          props.children
+        {children ? (
+          children
         ) : (
           <TextCus
             style={[
@@ -75,10 +62,10 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                 fontFamily: FontCustom.Roboto_Bold,
                 paddingHorizontal: 60,
               },
-              props.styleTitle,
+              styleTitle,
             ]}
             numberOfLines={1}>
-            {title}
+            {title ? title : ''}
           </TextCus>
         )}
         <>
@@ -89,7 +76,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
               justifyContent: 'center',
               flexDirection: 'row',
             }}>
-            {props.isBack ? (
+            {isBack ? (
               <ButtonCus
                 style={{
                   backgroundColor: Color.transparent,
@@ -101,11 +88,11 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                   icon="chevron-back"
                   size={25}
                   color={Color.baseText}
-                  style={props.styleIconBack}
+                  style={styleIconBack}
                 />
               </ButtonCus>
             ) : null}
-            {props.isClose ? (
+            {isClose ? (
               <ButtonCus
                 style={{
                   backgroundColor: Color.transparent,
@@ -117,12 +104,12 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                   icon="close"
                   size={25}
                   color={Color.baseText}
-                  style={props.styleIconClose}
+                  style={styleIconClose}
                 />
               </ButtonCus>
             ) : null}
           </View>
-          {props.rightComponent != null && (
+          {rightComponent != null && (
             <View
               style={[
                 {
@@ -130,9 +117,9 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                   right: 10,
                   justifyContent: 'center',
                 },
-                props.styleRightComponent,
+                styleRightComponent,
               ]}>
-              {props.rightComponent}
+              {rightComponent}
             </View>
           )}
         </>
@@ -154,7 +141,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
             },
             styleContainer,
           ]}>
-          {_render(props)}
+          {_render()}
         </LinearGradient>
       ) : (
         <View
@@ -165,7 +152,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
             },
             styleContainer,
           ]}>
-          {_render(props)}
+          {_render()}
         </View>
       )}
     </SafeAreaView>

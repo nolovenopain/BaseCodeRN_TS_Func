@@ -1,6 +1,12 @@
 import React from 'react';
-import {Text as TextRN, StyleSheet, Platform, StyleProp, TextStyle} from 'react-native';
-import { Color } from '../Utils';
+import {
+  Text as TextRN,
+  StyleSheet,
+  Platform,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
+import {Color} from '../Utils';
 
 interface TextCus {
   selectable?: boolean;
@@ -136,6 +142,7 @@ export const TextCus: React.FC<TextCus> = ({
   }
 
   styleCus.fontSize = (styleCus.fontSize || 14) * scaleFontSize;
+
   return (
     <TextRN
       allowFontScaling={false}

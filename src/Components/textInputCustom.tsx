@@ -1,9 +1,12 @@
-import React, {useState, forwardRef, ReactNode} from 'react';
+import React, {useState, forwardRef, ReactNode, useRef, useEffect} from 'react';
 import {
+  Animated,
+  Easing,
   FlexStyle,
   KeyboardTypeOptions,
   StyleProp,
   TextInput as TextInputRN,
+  TextStyle,
   View,
   ViewStyle,
 } from 'react-native';
@@ -36,6 +39,10 @@ interface TextInputCus {
   maxLength?: number;
   onFocusInput?(): void;
   onBlurInput?(): void;
+  shadow?: boolean;
+  colorChangeOnFocus?: boolean;
+  styleLabelContainer?: StyleProp<ViewStyle>;
+  styleLabel?: StyleProp<TextStyle>;
 }
 
 export const TextInputCus = React.memo<TextInputCus>(
@@ -64,13 +71,33 @@ export const TextInputCus = React.memo<TextInputCus>(
       validateError,
       onFocusInput,
       onBlurInput,
+      shadow,
+      colorChangeOnFocus,
+      styleLabelContainer,
+      styleLabel,
     } = props;
 
     const [required, setRequired] = useState(false);
     const [showPass, setShowPass] = useState(hideshowText);
     const [focus, setFocus] = useState(false);
 
+    const focusAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+      Animated.timing(focusAnim, {
+        toValue: focus || (!focus && valueProps != '') ? 1 : 0,
+        // I took duration and easing values
+        // from material.io demo page
+        duration: 150,
+        easing: Easing.bezier(0.4, 0, 0.2, 1),
+        // we'll come back to this later
+        useNativeDriver: false,
+      }).start();
+    }, [focusAnim, focus]);
+
     const clearText = () => {
+      onRef.current?.focus();
+      setFocus(true);
       onTextChange('');
       setRequired(true);
     };
@@ -101,6 +128,12 @@ export const TextInputCus = React.memo<TextInputCus>(
       onBlurInput ? onBlurInput() : null;
     };
 
+    let colorLabel =
+      focus || (!focus && valueProps != '') ? Color.blue : '#B9C4CA';
+    if (validateError) {
+      colorLabel = Color.red;
+    }
+
     return (
       <View
         style={[
@@ -108,50 +141,40 @@ export const TextInputCus = React.memo<TextInputCus>(
             width: '100%',
           },
           styleContainer,
+          shadow
+            ? {
+                shadowColor: Color.gray,
+                shadowOffset: {width: 0, height: 4},
+                shadowOpacity: 0.8,
+                shadowRadius: 3,
+                elevation: 5,
+              }
+            : null,
         ]}>
         <View
           style={[
             {
-              padding: 5,
+              paddingHorizontal: 5,
               borderColor: validateError
                 ? Color.red
-                : focus
-                ? Color.yellow
-                : '#CCCCCC',
+                : focus && colorChangeOnFocus
+                ? Color.blue
+                : '#E5E5E5',
               borderWidth: borderWidth || 0,
               flexDirection: 'row',
-              justifyContent: 'center',
               alignItems: 'center',
               borderRadius: 5,
+              backgroundColor: Color.white,
             },
             styleContainerTextInput,
           ]}>
           {leftIcon && (
             <View style={[{marginRight: 10}, styleLeftIcon]}>{leftIcon}</View>
           )}
-          {label && (
-            <View
-              style={{
-                backgroundColor: Color.white,
-                position: 'absolute',
-                paddingHorizontal: 5,
-                flexDirection: 'row',
-                top: -10,
-                left: 20,
-              }}>
-              <TextCus
-                children={label}
-                style={{color: Color.silver, fontSize: 13}}
-              />
-              {requiredProps && (
-                <TextCus children=" *" style={{color: Color.red}} />
-              )}
-            </View>
-          )}
           <TextInputRN
             ref={onRef}
             placeholder={placeholder ? placeholder : ''}
-            placeholderTextColor={Color.gray}
+            placeholderTextColor="#909090"
             maxLength={maxLength}
             style={[
               {
@@ -159,8 +182,8 @@ export const TextInputCus = React.memo<TextInputCus>(
                 flex: 1,
                 fontFamily: FontCustom.Arial,
                 fontSize: 15,
-                minHeight: multiline === true ? 100 : 30,
-                paddingTop: multiline === true ? 5 : 0,
+                minHeight: multiline === true ? 100 : 45,
+                paddingTop: multiline === true ? 15 : 0,
                 paddingLeft: leftIcon ? 0 : 10,
               },
               styleTextInput,
@@ -179,6 +202,50 @@ export const TextInputCus = React.memo<TextInputCus>(
             onBlur={onBlur}
             editable={editable}
           />
+
+          {label && (
+            <Animated.View
+              style={[
+                styleLabelContainer,
+                {
+                  position: 'absolute',
+                  paddingHorizontal:
+                    focus || (!focus && valueProps != '') ? 8 : 0,
+                  backgroundColor: Color.white,
+                  transform: [
+                    {
+                      scale: focusAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [1, 0.75],
+                      }),
+                    },
+                    {
+                      translateY: focusAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [multiline ? -30 : 0, multiline ? -68 : -30],
+                      }),
+                    },
+                    {
+                      translateX: focusAnim.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [16, 0],
+                      }),
+                    },
+                  ],
+                },
+              ]}>
+              <TextCus
+                children={label}
+                style={[
+                  styleLabel,
+                  {
+                    color: colorLabel,
+                  },
+                ]}
+              />
+            </Animated.View>
+          )}
+
           {valueProps &&
           valueProps.trim() != '' &&
           !multiline &&
@@ -189,7 +256,19 @@ export const TextInputCus = React.memo<TextInputCus>(
                 padding: 5,
               }}
               onPress={clearText}
-              children={<Ionicons icon="close" size={18} />}
+              children={
+                <Ionicons
+                  icon="close"
+                  size={18}
+                  color={
+                    validateError
+                      ? Color.red
+                      : focus && colorChangeOnFocus
+                      ? Color.blue
+                      : '#909090'
+                  }
+                />
+              }
             />
           ) : null}
           {hideshowText && hideshowIcon ? (
@@ -203,7 +282,13 @@ export const TextInputCus = React.memo<TextInputCus>(
               <Ionicons
                 icon={showPass ? 'ios-eye' : 'ios-eye-off'}
                 size={20}
-                color="silver"
+                color={
+                  validateError
+                    ? Color.red
+                    : focus && colorChangeOnFocus
+                    ? Color.blue
+                    : '#909090'
+                }
               />
             </ButtonCus>
           ) : null}

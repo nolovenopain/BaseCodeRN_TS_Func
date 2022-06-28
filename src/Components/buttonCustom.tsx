@@ -1,6 +1,11 @@
-import React, { ReactNode } from 'react';
-import {TouchableOpacity, StyleProp, ViewStyle, TextStyle} from 'react-native';
-import {TextCus} from './textCustom';
+import React, { ReactNode } from "react";
+import {
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
+} from "react-native";
+import { TextCus } from "./textCustom";
 
 interface ButtonCus {
   children: ReactNode;
@@ -8,7 +13,7 @@ interface ButtonCus {
   style: StyleProp<ViewStyle>;
   isShowTouch?: boolean;
   styleText?: StyleProp<TextStyle>;
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 export const ButtonCus: React.FC<ButtonCus> = ({
@@ -26,23 +31,25 @@ export const ButtonCus: React.FC<ButtonCus> = ({
       style={[
         {
           padding: 10,
-          alignItems: 'center', 
+          alignItems: "center",
         },
         style,
         isShowTouch && {
-          borderColor: 'red',
+          borderColor: "red",
           borderWidth: 1,
         },
       ]}
-      disabled={disabled}>
-      {children != null && typeof children === 'string' ? (
+      disabled={disabled}
+    >
+      {children != null && typeof children === "string" ? (
         <TextCus
           style={[
             {
-              textAlign: 'center',
+              textAlign: "center",
             },
             styleText,
-          ]}>
+          ]}
+        >
           {children}
         </TextCus>
       ) : (
