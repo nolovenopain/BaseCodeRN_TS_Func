@@ -13,7 +13,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {navigationRef} from '../Navigations/rootNavigations';
 import {BottomTabStack} from './bottomTabStack';
-import { Color } from '../Utils';
+import {Color, Loading} from '../Utils';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,13 +27,17 @@ const MyTheme = {
 
 const AppNavigation = () => {
   return (
-    <NavigationContainer ref={navigationRef} theme={MyTheme}>
-      <Stack.Navigator
-        screenOptions={{headerShown: false}}
-        initialRouteName="BottomTabStack">
-        <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer ref={navigationRef} theme={MyTheme}>
+        <Stack.Navigator
+          screenOptions={{headerShown: false}}
+          initialRouteName="BottomTabStack">
+          <Stack.Screen name="BottomTabStack" component={BottomTabStack} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      
+      <Loading />
+    </>
   );
 };
 
