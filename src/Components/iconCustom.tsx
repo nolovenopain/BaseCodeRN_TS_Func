@@ -12,19 +12,16 @@ import {default as FontistoRN} from 'react-native-vector-icons/Fontisto';
 import {default as SimpleLineIconsRN} from 'react-native-vector-icons/SimpleLineIcons';
 import {default as OcticonsRN} from 'react-native-vector-icons/Octicons';
 import {default as FoundationRN} from 'react-native-vector-icons/Foundation';
-import {FlexStyle, StyleProp} from 'react-native';
-import { IconProps } from 'react-native-vector-icons/Icon';
+import {IconProps} from 'react-native-vector-icons/Icon';
 
 interface IconCusProps extends IconProps {
-  type: string;
-  icon: string;
+  type?: string;
 }
 
 export const IconCus: React.FC<IconCusProps> = ({
   type,
   size,
   name,
-  icon,
   color,
   style,
 }) => {
@@ -47,60 +44,60 @@ export const IconCus: React.FC<IconCusProps> = ({
   type = type == null || type == '' ? 'Ionicons' : type;
   size = size || 24;
   color = color || 'black';
-  name = name || icon || '';
+  name = name || '';
 
   var IconView = Type[type];
   return <IconView style={style} size={size} color={color} name={name} />;
 };
 
-var Ionicons = (props: any) => {
+var Ionicons = (props: IconCusProps) => {
   return <IconCus {...props} type="Ionicons" />;
 };
 
-var AntDesign = (props: any) => {
+var AntDesign = (props: IconCusProps) => {
   return <IconCus {...props} type="AntDesign" />;
 };
 
-var EvilIcons = (props: any) => {
+var EvilIcons = (props: IconCusProps) => {
   return <IconCus {...props} type="EvilIcons" />;
 };
 
-var MaterialIcons = (props: any) => {
+var MaterialIcons = (props: IconCusProps) => {
   return <IconCus {...props} type="MaterialIcons" />;
 };
 
-var MaterialCommunityIcons = (props: any) => {
+var MaterialCommunityIcons = (props: IconCusProps) => {
   return <IconCus {...props} type="MaterialCommunityIcons" />;
 };
 
-var FontAwesome = (props: any) => {
+var FontAwesome = (props: IconCusProps) => {
   return <IconCus {...props} type="FontAwesome" />;
 };
 
-var FontAwesome5 = (props: any) => {
+var FontAwesome5 = (props: IconCusProps) => {
   return <IconCus {...props} type="FontAwesome5" />;
 };
 
-var Feather = (props: any) => {
+var Feather = (props: IconCusProps) => {
   return <IconCus {...props} type="Feather" />;
 };
-var Entypo = (props: any) => {
+var Entypo = (props: IconCusProps) => {
   return <IconCus {...props} type="Entypo" />;
 };
 
-var Fontisto = (props: any) => {
+var Fontisto = (props: IconCusProps) => {
   return <IconCus {...props} type="Fontisto" />;
 };
 
-var SimpleLineIcons = (props: any) => {
+var SimpleLineIcons = (props: IconCusProps) => {
   return <IconCus {...props} type="SimpleLineIcons" />;
 };
 
-var Octicons = (props: any) => {
+var Octicons = (props: IconCusProps) => {
   return <IconCus {...props} type="Octicons" />;
 };
 
-var Foundation = (props: any) => {
+var Foundation = (props: IconCusProps) => {
   return <IconCus {...props} type="Foundation" />;
 };
 

@@ -21,7 +21,7 @@ export const BottomTabStack = () => {
     <Tab.Navigator
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let icon;
+          let icon = ''; 
 
           if (route.name === 'HomeStack') {
             icon = focused ? 'home-outline' : 'home-outline';
