@@ -3,9 +3,9 @@ import {
   Animated,
   Easing,
   FlexStyle,
-  KeyboardTypeOptions,
   StyleProp,
   TextInput as TextInputRN,
+  TextInputProps,
   TextStyle,
   View,
   ViewStyle,
@@ -15,18 +15,14 @@ import {ButtonCus} from './buttonCustom';
 import {Ionicons} from './iconCustom';
 import {FontCustom, TextCus} from './textCustom';
 
-interface TextInputCus {
+interface TextInputCus extends TextInputProps {
   onRef?: any;
-  valueProps: any;
   label?: string;
   borderWidth?: number;
   onTextChange(text: string): void;
   leftIcon?: ReactNode;
-  placeholder?: string;
-  multiline?: boolean;
   enterToNextInput?(): void;
   nextInput?: any;
-  editable?: boolean;
   hideshowIcon?: boolean;
   hideshowText?: boolean;
   requiredProps?: boolean;
@@ -34,9 +30,7 @@ interface TextInputCus {
   styleContainerTextInput?: StyleProp<ViewStyle>;
   styleTextInput?: StyleProp<FlexStyle>;
   styleLeftIcon?: StyleProp<FlexStyle>;
-  keyboardType?: KeyboardTypeOptions | undefined;
   validateError?: string;
-  maxLength?: number;
   onFocusInput?(): void;
   onBlurInput?(): void;
   shadow?: boolean;
@@ -49,7 +43,7 @@ export const TextInputCus = React.memo<TextInputCus>(
   forwardRef((props: TextInputCus, ref) => {
     const {
       onRef,
-      valueProps,
+      value,
       maxLength,
       label,
       styleContainer,
@@ -85,7 +79,7 @@ export const TextInputCus = React.memo<TextInputCus>(
 
     useEffect(() => {
       Animated.timing(focusAnim, {
-        toValue: focus || (!focus && valueProps != '') ? 1 : 0,
+        toValue: focus || (!focus && value != '') ? 1 : 0,
         // I took duration and easing values
         // from material.io demo page
         duration: 150,
@@ -129,7 +123,7 @@ export const TextInputCus = React.memo<TextInputCus>(
     };
 
     let colorLabel =
-      focus || (!focus && valueProps != '') ? Color.blue : '#B9C4CA';
+      focus || (!focus && value != '') ? Color.blue : '#B9C4CA';
     if (validateError) {
       colorLabel = Color.red;
     }
@@ -188,7 +182,7 @@ export const TextInputCus = React.memo<TextInputCus>(
               },
               styleTextInput,
             ]}
-            value={valueProps}
+            value={value}
             onChangeText={onChangeText}
             secureTextEntry={showPass}
             underlineColorAndroid="transparent"
@@ -210,7 +204,7 @@ export const TextInputCus = React.memo<TextInputCus>(
                 {
                   position: 'absolute',
                   paddingHorizontal:
-                    focus || (!focus && valueProps != '') ? 8 : 0,
+                    focus || (!focus && value != '') ? 8 : 0,
                   backgroundColor: Color.white,
                   transform: [
                     {
@@ -246,8 +240,8 @@ export const TextInputCus = React.memo<TextInputCus>(
             </Animated.View>
           )}
 
-          {valueProps &&
-          valueProps.trim() != '' &&
+          {value &&
+          value.trim() != '' &&
           !multiline &&
           editable != false ? (
             <ButtonCus
@@ -309,7 +303,7 @@ export const TextInputCus = React.memo<TextInputCus>(
   }),
   (prevProps, nextProps) => {
     if (
-      prevProps.valueProps === nextProps.valueProps &&
+      prevProps.value === nextProps.value &&
       prevProps.validateError === nextProps.validateError
     ) {
       return true;

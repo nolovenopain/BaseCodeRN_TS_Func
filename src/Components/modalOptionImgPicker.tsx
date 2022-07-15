@@ -12,9 +12,9 @@ import {FontCustom, TextCus} from './textCustom';
 
 interface ModalOptionImgPickerCus {
   modalPickerVisible: boolean;
-  closeModalPicker: () => void;
-  takePhoto: () => void;
-  pickFromLibrary: () => void;
+  closeModalPicker(): void;
+  takePhoto(): void;
+  pickFromLibrary(): void;
 }
 
 const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCus> = ({

@@ -3,13 +3,13 @@ import {StackActions} from '@react-navigation/native';
 
 export const navigationRef = createNavigationContainerRef();
 
-export function navigate(screen: never, params: never) {
+export const navigate = (screen: never, params: never) => {
   if (navigationRef.isReady()) {
     navigationRef.current?.navigate(screen, params);
   }
 }
 
-export function goBack() {
+export const goBack = () => {
   if (navigationRef.isReady()) {
     navigationRef.current?.goBack();
   }

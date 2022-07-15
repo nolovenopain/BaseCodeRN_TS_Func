@@ -1,14 +1,12 @@
 import React, {forwardRef, useImperativeHandle, useState} from 'react';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+import DateTimePicker, {
+  DateTimePickerProps,
+} from 'react-native-modal-datetime-picker';
 
-type DateTimePickerModalProps = {
-  mode: 'date' | 'time' | 'datetime';
+export interface DateTimePickerModalProps extends DateTimePickerProps {
   date?: Date;
   confirmDate(date: Date): void;
-  maximumDate?: Date;
-  minimumDate?: Date;
-  locale?: string;
-};
+}
 
 export const DateTimePickerModal = forwardRef(
   (
@@ -43,7 +41,7 @@ export const DateTimePickerModal = forwardRef(
       <DateTimePicker
         isVisible={isDatePickerVisible}
         mode={mode}
-        date={date ? date : new Date()}
+        date={date}
         onConfirm={handleDateConfirm}
         onCancel={hideDatePicker}
         maximumDate={maximumDate}
@@ -51,7 +49,7 @@ export const DateTimePickerModal = forwardRef(
         locale={locale}
         confirmTextIOS="Xác nhận"
         cancelTextIOS="Huỷ"
-        display="spinner"
+        // display="spinner"
       />
     );
   },

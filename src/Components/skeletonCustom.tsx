@@ -17,7 +17,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
 }) => {
   const opacity = useRef(new Animated.Value(0.3));
 
-  let borderRadius = 0;
+  var borderRadius = 0;
 
   if (variant === 'circle') {
     borderRadius =

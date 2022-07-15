@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
-import {Color} from '../Utils';
 import {TextCus} from './textCustom';
 
 interface radioButtonProps {
@@ -9,6 +8,7 @@ interface radioButtonProps {
   selectedId: number | string;
   radioClick: () => void;
   styleContainer?: StyleProp<ViewStyle>;
+  selectedColor: string;
 }
 
 export const RadioButtonCus: React.FC<radioButtonProps> = ({
@@ -17,6 +17,7 @@ export const RadioButtonCus: React.FC<radioButtonProps> = ({
   selectedId,
   radioClick,
   styleContainer,
+  selectedColor,
 }) => {
   return (
     <View
@@ -27,7 +28,7 @@ export const RadioButtonCus: React.FC<radioButtonProps> = ({
           height: 20,
           borderRadius: 10,
           borderWidth: 1,
-          borderColor: id == selectedId ? Color.red : 'gray',
+          borderColor: id == selectedId ? selectedColor : 'gray',
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -38,7 +39,7 @@ export const RadioButtonCus: React.FC<radioButtonProps> = ({
               width: 12,
               height: 12,
               borderRadius: 6,
-              backgroundColor: Color.red,
+              backgroundColor: selectedColor,
             }}
           />
         ) : null}
@@ -47,7 +48,7 @@ export const RadioButtonCus: React.FC<radioButtonProps> = ({
         children={label}
         style={{
           marginLeft: 5,
-          color: id == selectedId ? Color.red : 'gray',
+          color: id == selectedId ? selectedColor : 'gray',
           fontSize: 13,
         }}
       />

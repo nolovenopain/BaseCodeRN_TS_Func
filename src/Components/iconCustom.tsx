@@ -11,6 +11,7 @@ import {default as EntypoRN} from 'react-native-vector-icons/Entypo';
 import {default as FontistoRN} from 'react-native-vector-icons/Fontisto';
 import {default as SimpleLineIconsRN} from 'react-native-vector-icons/SimpleLineIcons';
 import {default as OcticonsRN} from 'react-native-vector-icons/Octicons';
+import {default as FoundationRN} from 'react-native-vector-icons/Foundation';
 import {FlexStyle, StyleProp} from 'react-native';
 
 interface IconCusProps {
@@ -43,6 +44,7 @@ const IconCus: React.FC<IconCusProps> = ({
     Fontisto: FontistoRN,
     SimpleLineIcons: SimpleLineIconsRN,
     Octicons: OcticonsRN,
+    Foundation: FoundationRN,
   };
 
   type = type == null || type == '' ? 'Ionicons' : type;
@@ -101,6 +103,10 @@ var Octicons = (props: any) => {
   return <IconCus {...props} type="Octicons" />;
 };
 
+var Foundation = (props: any) => {
+  return <IconCus {...props} type="Foundation" />;
+};
+
 export {
   Ionicons,
   AntDesign,
@@ -114,4 +120,5 @@ export {
   Fontisto,
   SimpleLineIcons,
   Octicons,
+  Foundation,
 };

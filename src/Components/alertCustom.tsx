@@ -30,7 +30,6 @@ export const AlertCus = {
           onPress: () => {
             if (cancelPress) cancelPress();
           },
-          // style: 'cancel',
         },
         {
           text: textButtonOK || 'Đồng ý',
