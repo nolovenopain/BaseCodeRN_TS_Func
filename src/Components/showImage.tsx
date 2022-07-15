@@ -93,7 +93,7 @@ export const ShowImage: React.FC<ShowImage> = ({
             top: hasNotch() ? 30 : 20,
           }}
           onPress={goBack}>
-          <Ionicons icon="close-circle" size={25} color="white" />
+          <Ionicons name="close-circle" size={25} color="white" />
         </ButtonCus>
       )}
       {showControls && deleteImg && (
@@ -108,7 +108,7 @@ export const ShowImage: React.FC<ShowImage> = ({
             right: 15,
           }}
           onPress={deleteImage}>
-          <Ionicons icon="trash" size={20} color="white" />
+          <Ionicons name="trash" size={20} color="white" />
         </ButtonCus>
       )}
     </Modal>

@@ -250,7 +250,7 @@ export const TextInputCus = React.memo<TextInputCus>(
               onPress={clearText}
               children={
                 <Ionicons
-                  icon="close"
+                  name="close"
                   size={18}
                   color={
                     validateError
@@ -272,7 +272,7 @@ export const TextInputCus = React.memo<TextInputCus>(
               }}
               onPress={showText}>
               <Ionicons
-                icon={showPass ? 'ios-eye' : 'ios-eye-off'}
+                name={showPass ? 'ios-eye' : 'ios-eye-off'}
                 size={20}
                 color={
                   validateError

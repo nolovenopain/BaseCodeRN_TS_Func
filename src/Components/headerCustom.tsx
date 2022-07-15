@@ -85,7 +85,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                 }}
                 onPress={goback}>
                 <Ionicons
-                  icon="chevron-back"
+                  name="chevron-back"
                   size={25}
                   color={Color.baseText}
                   style={styleIconBack}
@@ -101,7 +101,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                 }}
                 onPress={goback}>
                 <Ionicons
-                  icon="close"
+                  name="close"
                   size={25}
                   color={Color.baseText}
                   style={styleIconClose}
