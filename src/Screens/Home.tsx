@@ -1,28 +1,26 @@
-import I18n from 'i18n-js';
-import React, {useState} from 'react';
+import React, {Dispatch, useState} from 'react';
 import {Alert, StyleSheet, Switch, Text, View} from 'react-native';
-import {connect} from 'react-redux';
+import { useSelector } from 'react-redux';
 import {TextCus} from '../Components';
 import {SearchBarCustom} from '../Components/searchBarCustom';
 import {width} from '../Constants';
-import {ApplicationState, UserState, onChangeLanguage} from '../Redux';
+import {ApplicationState, onChangeLanguage, store} from '../Redux';
 
-interface HomeProps {
-  user: UserState;
-  onChangeLanguage: Function;
-  settings: any;
-}
+interface HomeProps {}
 
-const _Home: React.FC<HomeProps> = ({user, onChangeLanguage, settings}) => {
-  const [isEnabled, setIsEnabled] = useState(false);
+export const Home: React.FC<HomeProps> = () => {
+  const dispatch = store.dispatch as typeof store.dispatch | Dispatch<any>;
+  const settingsState = useSelector((state: ApplicationState) => state.settingsReducer,)
+
+  const [isEnabled, setIsEnabled] = useState(settingsState.language == 'vi' ? false : true);
   const [state, setstate] = useState('');
 
   const toggleSwitch = () => {
     if (isEnabled) {
-      onChangeLanguage('vi', true);
+      dispatch(onChangeLanguage('vi', true));
       setIsEnabled(false);
     } else {
-      onChangeLanguage('en', true);
+      dispatch(onChangeLanguage('en', true));
       setIsEnabled(true);
     }
   };
@@ -42,9 +40,9 @@ const _Home: React.FC<HomeProps> = ({user, onChangeLanguage, settings}) => {
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggleSwitch}
           value={isEnabled}
+          style={{marginBottom: 20}}
         />
 
-        <TextCus style={{}} children={'backToLogin'} />
         <SearchBarCustom
           value={state}
           onTextChange={setstate}
@@ -62,15 +60,6 @@ const _Home: React.FC<HomeProps> = ({user, onChangeLanguage, settings}) => {
     </View>
   );
 };
-
-const mapStateToProps = (state: ApplicationState) => ({
-  user: state.userReducer,
-  settings: state.settingsReducer,
-});
-
-const Home = connect(mapStateToProps, {onChangeLanguage})(_Home);
-
-export default Home;
 
 const styles = StyleSheet.create({
   container: {

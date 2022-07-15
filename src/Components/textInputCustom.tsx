@@ -25,7 +25,6 @@ interface TextInputCus extends TextInputProps {
   nextInput?: any;
   hideshowIcon?: boolean;
   hideshowText?: boolean;
-  requiredProps?: boolean;
   styleContainer?: StyleProp<ViewStyle>;
   styleContainerTextInput?: StyleProp<ViewStyle>;
   styleTextInput?: StyleProp<FlexStyle>;
@@ -57,7 +56,6 @@ export const TextInputCus = React.memo<TextInputCus>(
       editable,
       hideshowIcon,
       hideshowText,
-      requiredProps,
       styleContainerTextInput,
       styleTextInput,
       styleLeftIcon,

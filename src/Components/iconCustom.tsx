@@ -13,17 +13,14 @@ import {default as SimpleLineIconsRN} from 'react-native-vector-icons/SimpleLine
 import {default as OcticonsRN} from 'react-native-vector-icons/Octicons';
 import {default as FoundationRN} from 'react-native-vector-icons/Foundation';
 import {FlexStyle, StyleProp} from 'react-native';
+import { IconProps } from 'react-native-vector-icons/Icon';
 
-interface IconCusProps {
+interface IconCusProps extends IconProps {
   type: string;
-  size: number;
-  name: string;
   icon: string;
-  color: string;
-  style: StyleProp<FlexStyle>;
 }
 
-const IconCus: React.FC<IconCusProps> = ({
+export const IconCus: React.FC<IconCusProps> = ({
   type,
   size,
   name,

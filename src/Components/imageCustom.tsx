@@ -1,22 +1,19 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   ActivityIndicator,
   Image as ImageRN,
-  StyleProp,
   StyleSheet,
   View,
 } from 'react-native';
-import FastImage, {ImageStyle} from 'react-native-fast-image';
+import FastImage, {FastImageProps, ImageStyle} from 'react-native-fast-image';
 import {errorImage} from '../Constants';
 import Config from 'react-native-config';
 
-interface ImageCus {
+interface ImageCus extends FastImageProps {
   source: any;
   autoHeight?: boolean;
-  style: StyleProp<ImageStyle>;
   indicatorSize?: number | 'small' | 'large' | undefined;
   indicatorColor?: string;
-  resizeMode?: 'contain' | 'cover' | 'stretch' | 'center';
 }
 
 export const ImageCus: React.FC<ImageCus> = ({

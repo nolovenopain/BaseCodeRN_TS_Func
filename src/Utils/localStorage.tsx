@@ -74,8 +74,8 @@ export const LocalStorage = {
       });
     });
   },
-  setLanguage: (language: any) => {
-    LocalStorage.setItem(LANGUAGE, JSON.stringify(language));
+  setLanguage: (language: string) => {
+    LocalStorage.setItem(LANGUAGE, language);
   },
   getLanguage: async () => {
     return new Promise((resolve, reject) => {

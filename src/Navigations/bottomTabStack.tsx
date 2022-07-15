@@ -15,7 +15,8 @@ const Tab = createBottomTabNavigator();
 export const BottomTabStack = () => {
   const language = useSelector(
     (state: ApplicationState) => state.settingsReducer.language,
-  );
+  ); console.log(language);
+  
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({

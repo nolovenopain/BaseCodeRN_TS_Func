@@ -1,36 +1,7 @@
-import CheckBox from '@react-native-community/checkbox';
+import CheckBox, { CheckBoxProps } from '@react-native-community/checkbox';
 import React from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
 
-interface CheckBoxCus {
-  onValueChange?: ((value: boolean) => void) | undefined;
-  value: boolean;
-  disabled?: boolean;
-  boxType?: 'circle' | 'square';
-  tintColor?: string;
-  onAnimationType?:
-    | 'stroke'
-    | 'fill'
-    | 'bounce'
-    | 'flat'
-    | 'one-stroke'
-    | 'fade';
-  offAnimationType?:
-    | 'stroke'
-    | 'fill'
-    | 'bounce'
-    | 'flat'
-    | 'one-stroke'
-    | 'fade';
-  onCheckColor?: string;
-  onTintColor?: string;
-  onFillColor?: string;
-  tintColors?: {
-    true?: any;
-    false?: any;
-  };
-  style?: StyleProp<ViewStyle>;
-}
+interface CheckBoxCus extends CheckBoxProps {}
 
 export const CheckBoxCus: React.FC<CheckBoxCus> = ({
   value,

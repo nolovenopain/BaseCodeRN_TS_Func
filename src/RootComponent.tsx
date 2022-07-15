@@ -3,6 +3,7 @@ import AppNavigation from './Navigations/appNavigation';
 import {useNetInfo} from '@react-native-community/netinfo';
 import {
   AccountLogin,
+  onChangeLanguage,
   onCheckInternetConnection,
   onUpdateAccountLogin,
   onUpdateUser,
@@ -14,7 +15,7 @@ import {LocalStorage} from './Utils';
 
 export const RootComponent = () => {
   const netInfo = useNetInfo();
-  const dispatch = store.dispatch as typeof store.dispatch | Dispatch<any>;;
+  const dispatch = store.dispatch as typeof store.dispatch | Dispatch<any>;
 
   const [
     modalInternetConnectionStatusVisible,
@@ -48,14 +49,15 @@ export const RootComponent = () => {
 
   const getInfo = async () => {
     const user = (await LocalStorage.getUserSaved()) as UserModel;
-    if (user.Token) {
-      await dispatch(onUpdateUser(user as UserModel, false));
-    }
+    user.Token && dispatch(onUpdateUser(user, false));
+
     const accountLogin =
       (await LocalStorage.getAccountRemember()) as AccountLogin;
-    if (accountLogin.username) {
-      await dispatch(onUpdateAccountLogin(accountLogin as AccountLogin, false));
-    }
+    accountLogin.username &&
+      dispatch(onUpdateAccountLogin(accountLogin, false));
+
+    const language = (await LocalStorage.getLanguage()) as string;
+    language && dispatch(onChangeLanguage(language, false));
     setIsReady(true);
   };
 
