@@ -17,8 +17,6 @@ import {store} from './src/Redux';
 import SplashScreen from 'react-native-splash-screen';
 import {RootComponent} from './src/RootComponent';
 
-const Stack = createNativeStackNavigator();
-
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
