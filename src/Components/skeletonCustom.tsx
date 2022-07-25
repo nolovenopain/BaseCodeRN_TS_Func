@@ -49,6 +49,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
           height,
           width,
           backgroundColor: Color.contentLoading,
+          borderRadius: borderRadius,
         },
         style,
       ]}
