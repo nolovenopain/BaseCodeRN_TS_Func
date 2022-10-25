@@ -1,19 +1,11 @@
-import {Dimensions, StatusBar} from 'react-native';
-import deviceInfoModule from 'react-native-device-info';
+import {Dimensions, NativeModules} from 'react-native';
+const {StatusBarManager} = NativeModules;
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
-const statusHeight =
-  (StatusBar.currentHeight || 24) + (deviceInfoModule.hasNotch() ? 20 : 0);
+const statusHeight = StatusBarManager.HEIGHT || 24;
 const headerHeight = 45;
 const headerAva = 35;
 const scrollSize = 60;
 
-export {
-  width,
-  height,
-  statusHeight,
-  headerAva,
-  headerHeight,
-  scrollSize,
-};
+export {width, height, statusHeight, headerAva, headerHeight, scrollSize};

@@ -8,14 +8,13 @@ import {useSelector} from 'react-redux';
 import {translate} from '../Language';
 import {ApplicationState} from '../Redux';
 import {Color} from '../Utils';
-import {hasNotch} from 'react-native-device-info';
 
 const Tab = createBottomTabNavigator();
 
 export const BottomTabStack = () => {
   const language = useSelector(
     (state: ApplicationState) => state.settingsReducer.language,
-  ); console.log(language);
+  );
   
   return (
     <Tab.Navigator
@@ -39,8 +38,8 @@ export const BottomTabStack = () => {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: Color.white,
-          height: hasNotch() ? 80 : 60,
-          paddingBottom: hasNotch() ? 30 : 10,
+          height: 80,
+          paddingBottom: 25,
         },
       })}
       initialRouteName="HomeStack">

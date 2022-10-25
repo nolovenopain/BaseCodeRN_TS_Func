@@ -1,9 +1,8 @@
 import React, {ReactNode} from 'react';
-import {SafeAreaView, View} from 'react-native';
+import {Platform, View} from 'react-native';
 import {Ionicons} from './iconCustom';
 import LinearGradient from 'react-native-linear-gradient';
-import {headerHeight, width} from '../Constants';
-import {hasNotch} from '../Utils/helper';
+import {headerHeight, statusHeight, width} from '../Constants';
 import {goBack} from '../Navigations/rootNavigations';
 import {FontCustom, TextCus} from './textCustom';
 import {ButtonCus} from './buttonCustom';
@@ -13,6 +12,7 @@ interface HeaderCus {
   isBack?: boolean;
   isClose?: boolean;
   rightComponent?: ReactNode;
+  leftComponent?: ReactNode;
   backgroundGradient?: boolean;
   clearForm?(): void;
   title?: string;
@@ -21,6 +21,7 @@ interface HeaderCus {
   styleIconBack?: {};
   styleIconClose?: {};
   styleRightComponent?: {};
+  styleLeftComponent?: {};
   children?: ReactNode;
 }
 
@@ -28,6 +29,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
   isBack = false,
   isClose = false,
   rightComponent = null,
+  leftComponent = null,
   backgroundGradient = true,
   clearForm,
   title,
@@ -36,6 +38,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
   styleIconBack,
   styleIconClose,
   styleRightComponent,
+  styleLeftComponent,
   children,
 }) => {
   const goback = () => {
@@ -50,6 +53,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           height: headerHeight,
           width,
           justifyContent: 'center',
+          marginTop: Platform.OS == 'ios' ? statusHeight : 5,
         }}>
         {children ? (
           children
@@ -109,6 +113,19 @@ export const HeaderCus: React.FC<HeaderCus> = ({
               </ButtonCus>
             ) : null}
           </View>
+          {leftComponent != null && (
+            <View
+              style={[
+                {
+                  position: 'absolute',
+                  left: 10,
+                  justifyContent: 'center',
+                },
+                styleLeftComponent,
+              ]}>
+              {leftComponent}
+            </View>
+          )}
           {rightComponent != null && (
             <View
               style={[
@@ -128,7 +145,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
   };
 
   return (
-    <SafeAreaView>
+    <View>
       {backgroundGradient ? (
         <LinearGradient
           start={{x: 0, y: 0}}
@@ -137,7 +154,6 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           style={[
             {
               width: '100%',
-              paddingTop: hasNotch() ? 0 : 5,
             },
             styleContainer,
           ]}>
@@ -148,13 +164,12 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           style={[
             {
               width: '100%',
-              paddingTop: hasNotch() ? 0 : 5,
             },
             styleContainer,
           ]}>
           {_render()}
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };

@@ -7,7 +7,6 @@ import {
   NativeSyntheticEvent,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {hasNotch} from 'react-native-device-info';
 import {Image as ImageCP} from 'react-native-image-crop-picker';
 import ImageZoom from 'react-native-image-pan-zoom';
 import {height, width} from '../Constants';
@@ -90,7 +89,7 @@ export const ShowImage: React.FC<ShowImage> = ({
             alignItems: 'center',
             marginLeft: 5,
             position: 'absolute',
-            top: hasNotch() ? 30 : 20,
+            top: 30,
           }}
           onPress={goBack}>
           <Ionicons name="close-circle" size={25} color="white" />
@@ -104,7 +103,7 @@ export const ShowImage: React.FC<ShowImage> = ({
             alignItems: 'center',
             marginLeft: 5,
             position: 'absolute',
-            top: hasNotch() ? 30 : 20,
+            top: 30,
             right: 15,
           }}
           onPress={deleteImage}>

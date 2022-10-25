@@ -1,5 +1,4 @@
 import React, {Dispatch} from 'react';
-import deviceInfoModule from 'react-native-device-info';
 import {
   badRequest,
   notFound,
@@ -37,10 +36,6 @@ export const createFormData = (images: Image[], body: any) => {
     });
 
   return formData;
-};
-
-export const hasNotch = () => {
-  return deviceInfoModule.hasNotch();
 };
 
 export const checkStatus = async (
