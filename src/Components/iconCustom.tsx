@@ -13,6 +13,8 @@ import {default as SimpleLineIconsRN} from 'react-native-vector-icons/SimpleLine
 import {default as OcticonsRN} from 'react-native-vector-icons/Octicons';
 import {default as FoundationRN} from 'react-native-vector-icons/Foundation';
 import {IconProps} from 'react-native-vector-icons/Icon';
+import {iconSize24} from '../Constants';
+import { Color } from '../Utils';
 
 interface IconCusProps extends IconProps {
   type?: string;
@@ -42,8 +44,8 @@ export const IconCus: React.FC<IconCusProps> = ({
   };
 
   type = type == null || type == '' ? 'Ionicons' : type;
-  size = size || 24;
-  color = color || 'black';
+  size = size || iconSize24;
+  color = color || Color.baseText;
   name = name || '';
 
   var IconView = Type[type];

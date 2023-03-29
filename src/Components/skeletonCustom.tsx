@@ -15,7 +15,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   variant = 'box',
   style,
 }) => {
-  const opacity = useRef(new Animated.Value(0.3));
+  const opacity = useRef<Animated.Value>(new Animated.Value(0.3));
 
   var borderRadius = 0;
 

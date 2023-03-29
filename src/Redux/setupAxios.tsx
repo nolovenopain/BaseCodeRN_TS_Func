@@ -1,4 +1,7 @@
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
+import axios, {
+  AxiosError,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import Config from 'react-native-config';
 import {store} from './store';
 
@@ -11,15 +14,13 @@ const AxiosInstance = axios.create({
 });
 
 AxiosInstance.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: InternalAxiosRequestConfig) => {
     const {
       userReducer: {user},
     } = store.getState();
 
-    if (user?.Token) {
-      config.headers = {
-        Authorization: `Bearer ${user?.Token}`,
-      };
+    if (user?.access_token) {
+      config.headers.setAuthorization(`Bearer ${user?.access_token}`);
     }
 
     return config;

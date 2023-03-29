@@ -1,0 +1,101 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Black.ttf",
+      "sha1": "d09ea122f5d242607cfa832f2f45cd2aab7626ee"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_BlackItalic.ttf",
+      "sha1": "6de0efe39b1d1d12eda1100cf3cfd17eaae06e5a"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Bold.ttf",
+      "sha1": "bd2972e5db85df6dff39824974e1d0c438b6e904"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Bold_Italic.ttf",
+      "sha1": "580d872763d7419cb7fe3a283c7f1b746b1113c7"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Light.ttf",
+      "sha1": "c363114d1935050e9d45a7fb86191fdbcde3c3e0"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Light_Italic.ttf",
+      "sha1": "ea9e8571b9a8f8df3e7a2c91bf9f50844457596a"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Regular.ttf",
+      "sha1": "b5e1950b7a0b13af2567c0ed7722a11dc28008cd"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Regular_Italic.ttf",
+      "sha1": "aa91a0b7f6ad9b547e547b6de7bef403b3e76bf9"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Semibold.ttf",
+      "sha1": "c1a30ff11d44bf1c811bb423bd99e3749d60bc6f"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Semibold_Italic.ttf",
+      "sha1": "a224b7910c3778926ee0b1c27c59d6465389042a"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Thin.ttf",
+      "sha1": "eed67358b06de9f3f02fb27c2c0687898714a1df"
+    },
+    {
+      "path": "src/Assets/Fonts/ProximaNovaLg_Thin_Italic.ttf",
+      "sha1": "cef678908130a55f41b1864bae6d1a6f1f5e743e"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Black.ttf",
+      "sha1": "ee52f7cf8e54f3ee2afbc474a352d5c19514d9c1"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-BlackItalic.ttf",
+      "sha1": "94ba47a5510d3e21ae4db0da0425b855686de586"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Bold.ttf",
+      "sha1": "3dd713113ff2d79b94d2df343e2e28fa8e7279cf"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-BoldItalic.ttf",
+      "sha1": "60b9860b7fc93d6b0b322f170634105bc6a8cc8d"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Italic.ttf",
+      "sha1": "dc6756127707ab2d6e388a6023087351fa41999c"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Light.ttf",
+      "sha1": "92cc3b6f9440193c12fd02ed690e434d685a9cc8"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-LightItalic.ttf",
+      "sha1": "a0440f60a96a59c4105c3eb639cb2573826f84fe"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Medium.ttf",
+      "sha1": "f6783010d5def128c4a1539333324f75701d9bab"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-MediumItalic.ttf",
+      "sha1": "e4e31e55d279a9b12c32327a60a3a65c8350e5df"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Regular.ttf",
+      "sha1": "096c9245b6a192d1403a82848e104a65f578a8ec"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-Thin.ttf",
+      "sha1": "711e666e7f52210ac487c7ed81a0ac68a2b52261"
+    },
+    {
+      "path": "src/Assets/Fonts/Roboto-ThinItalic.ttf",
+      "sha1": "75ffde032d49005faa643338eda97c311ad7d316"
+    }
+  ]
+}

@@ -67,19 +67,22 @@ export const ShowImage: React.FC<ShowImage> = ({
           }
         }}
         showsVerticalScrollIndicator={false}>
-        <TouchableWithoutFeedback onPress={handleShowControls}>
-          <ImageZoom
-            cropWidth={width}
-            cropHeight={height}
-            imageWidth={width}
-            imageHeight={height}>
-            <Image
-              source={{uri: image?.path}}
-              style={{width: '100%', height: '100%'}}
-              resizeMode="contain"
-            />
-          </ImageZoom>
-        </TouchableWithoutFeedback>
+        <ButtonCus
+          children={
+            <ImageZoom
+              cropWidth={width}
+              cropHeight={height}
+              imageWidth={width}
+              imageHeight={height}>
+              <Image
+                source={{uri: image?.path}}
+                style={{width: '100%', height: '100%'}}
+                resizeMode="contain"
+              />
+            </ImageZoom>
+          }
+          onPress={handleShowControls}
+        />
       </ScrollView>
       {showControls && (
         <ButtonCus
@@ -91,9 +94,9 @@ export const ShowImage: React.FC<ShowImage> = ({
             position: 'absolute',
             top: 30,
           }}
-          onPress={goBack}>
-          <Ionicons name="close-circle" size={25} color="white" />
-        </ButtonCus>
+          children={<Ionicons name="close-circle" size={25} color="white" />}
+          onPress={goBack}
+        />
       )}
       {showControls && deleteImg && (
         <ButtonCus
@@ -106,9 +109,9 @@ export const ShowImage: React.FC<ShowImage> = ({
             top: 30,
             right: 15,
           }}
-          onPress={deleteImage}>
-          <Ionicons name="trash" size={20} color="white" />
-        </ButtonCus>
+          children={<Ionicons name="trash" size={20} color="white" />}
+          onPress={deleteImage}
+        />
       )}
     </Modal>
   );

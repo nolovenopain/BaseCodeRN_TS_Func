@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   Text as TextRN,
   StyleSheet,
   Platform,
   StyleProp,
   TextStyle,
+  TextProps,
 } from 'react-native';
+import { font14 } from '../Constants';
 import {Color} from '../Utils';
 
-interface TextCus {
+interface TextCusProps extends TextProps {
   selectable?: boolean;
   scaleFontSize?: number;
   text?: string;
   style?: StyleProp<TextStyle>;
-  children: React.ReactNode;
-  numberOfLines?: number;
+  children: ReactNode;
 }
 
 export const FontCustom = {
@@ -120,19 +121,19 @@ export const FontCustom = {
   }),
 };
 
-export const TextCus: React.FC<TextCus> = ({
+export const TextCus: React.FC<TextCusProps> = ({
   selectable = false,
   scaleFontSize = 1,
   style,
   text,
   children,
-  numberOfLines,
+  ...props
 }) => {
   var _style = style;
-  var styleCus = StyleSheet.flatten([
+  var styleCus = StyleSheet.flatten<TextStyle>([
     {
       color: Color.baseText,
-      fontSize: 14,
+      fontSize: font14,
       fontFamily: FontCustom.Arial,
     },
     _style,
@@ -141,14 +142,14 @@ export const TextCus: React.FC<TextCus> = ({
     children = text;
   }
 
-  styleCus.fontSize = (styleCus.fontSize || 14) * scaleFontSize;
+  styleCus.fontSize = (styleCus.fontSize || font14) * scaleFontSize;
 
   return (
     <TextRN
+      {...props}
       allowFontScaling={false}
       selectable={selectable}
-      style={styleCus}
-      numberOfLines={numberOfLines}>
+      style={styleCus}>
       {children}
     </TextRN>
   );

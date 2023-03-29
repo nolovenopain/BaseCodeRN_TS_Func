@@ -8,16 +8,17 @@ import {
 } from 'react-native';
 import {width} from '../Constants';
 import {Color} from '../Utils';
+import {ButtonCus} from './buttonCustom';
 import {FontCustom, TextCus} from './textCustom';
 
-interface ModalOptionImgPickerCus {
+interface ModalOptionImgPickerCusProps {
   modalPickerVisible: boolean;
   closeModalPicker(): void;
   takePhoto(): void;
   pickFromLibrary(): void;
 }
 
-const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCus> = ({
+const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCusProps> = ({
   modalPickerVisible,
   closeModalPicker,
   takePhoto,
@@ -29,33 +30,53 @@ const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCus> = ({
       transparent={true}
       animationType="fade"
       statusBarTranslucent={true}>
-      <TouchableWithoutFeedback onPress={closeModalPicker}>
-        <View style={styles.modalBackground}>
-          <TouchableWithoutFeedback onPress={() => {}}>
-            <View style={styles.modalPicker}>
-              <View style={styles.imgPicker}>
-                <TouchableOpacity style={styles.takePhoto} onPress={takePhoto}>
-                  <TextCus children="Chụp ảnh" style={styles.modalImageText} />
-                </TouchableOpacity>
-                <View style={styles.underlinePicker}></View>
-                <TouchableOpacity
-                  style={styles.libraryPhoto}
-                  onPress={pickFromLibrary}>
-                  <TextCus
-                    children="Chọn ảnh có sẵn"
-                    style={styles.modalImageText}
+      <ButtonCus
+        children={
+          <View style={styles.modalBackground}>
+            <ButtonCus
+              children={
+                <View style={styles.modalPicker}>
+                  <View style={styles.imgPicker}>
+                    <ButtonCus
+                      style={styles.takePhoto}
+                      children={
+                        <TextCus
+                          children="Chụp ảnh"
+                          style={styles.modalImageText}
+                        />
+                      }
+                      isOpacity
+                      onPress={takePhoto}
+                    />
+                    <View style={styles.underlinePicker}></View>
+                    <ButtonCus
+                      style={styles.libraryPhoto}
+                      children={
+                        <TextCus
+                          children="Chọn ảnh có sẵn"
+                          style={styles.modalImageText}
+                        />
+                      }
+                      isOpacity
+                      onPress={pickFromLibrary}
+                    />
+                  </View>
+                  <ButtonCus
+                    style={styles.cancel}
+                    children={
+                      <TextCus children="Huỷ" style={styles.modalImageText} />
+                    }
+                    isOpacity
+                    onPress={closeModalPicker}
                   />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity
-                style={styles.cancel}
-                onPress={closeModalPicker}>
-                <TextCus children="Huỷ" style={styles.modalImageText} />
-              </TouchableOpacity>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </TouchableWithoutFeedback>
+                </View>
+              }
+              onPress={() => {}}
+            />
+          </View>
+        }
+        onPress={closeModalPicker}
+      />
     </Modal>
   );
 };

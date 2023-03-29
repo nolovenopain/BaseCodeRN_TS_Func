@@ -1,27 +1,37 @@
+import {AlertCus} from '../Components';
+
 export const sessionExpired = () => {
-  return 'Yêu cầu hết hạn, mời bạn đăng nhập lại';
+  return "Your session is expired. Please log in again";
 };
 
 export const badRequest = () => {
-  return 'Lỗi gửi yêu cầu';
+  return "Bad request";
 };
 
 export const serverError = () => {
-  return 'Lỗi dữ liệu';
+  return "Internal server error";
 };
 
 export const notFound = () => {
-  return 'Không tìm thấy dữ liệu';
+  return "Data not found";
 };
 
 export const notPermission = () => {
-  return 'Bạn không có quyền truy cập chức năng này';
+  return "You don't have permission to access this resource";
 };
 
 export const missingToken = () => {
-  return 'Bạn không có quyền truy cập chức năng này';
+  return "Missing token";
 };
 
 export const otherError = () => {
-  return 'Không tìm thấy dữ liệu / Không thể truy cập chức năng này';
+  return "Data not found / Your access is denied";
+};
+
+export const noInternetAlert = () => {
+  AlertCus.Alert(
+    "Network error",
+    "Check your internet connection and try again",
+    () => {},
+  );
 };

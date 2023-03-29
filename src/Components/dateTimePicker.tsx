@@ -4,23 +4,13 @@ import DateTimePicker, {
 } from 'react-native-modal-datetime-picker';
 
 export interface DateTimePickerModalProps extends DateTimePickerProps {
-  date?: Date;
   confirmDate(date: Date): void;
 }
 
 export const DateTimePickerModal = forwardRef(
-  (
-    {
-      mode,
-      date,
-      confirmDate,
-      maximumDate,
-      minimumDate,
-      locale,
-    }: DateTimePickerModalProps,
-    ref,
-  ) => {
-    const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  ({confirmDate, ...props}: DateTimePickerModalProps, ref) => {
+    const [isDatePickerVisible, setIsDatePickerVisible] =
+      useState<boolean>(false);
 
     useImperativeHandle(ref, () => ({
       showDatePicker: () => {
@@ -39,17 +29,12 @@ export const DateTimePickerModal = forwardRef(
 
     return (
       <DateTimePicker
+        {...props}
         isVisible={isDatePickerVisible}
-        mode={mode}
-        date={date}
         onConfirm={handleDateConfirm}
         onCancel={hideDatePicker}
-        maximumDate={maximumDate}
-        minimumDate={minimumDate}
-        locale={locale}
-        confirmTextIOS="Xác nhận"
-        cancelTextIOS="Huỷ"
-        // display="spinner"
+        confirmTextIOS="Confirm"
+        cancelTextIOS="Cancel"
       />
     );
   },

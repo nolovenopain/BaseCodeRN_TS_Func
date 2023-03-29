@@ -17,23 +17,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>localhost</key>
-			<dict>
-				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-			</dict>
-		</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
@@ -46,9 +40,9 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIAppFonts</key>
@@ -69,18 +63,20 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Comfortaa.ttf</string>
+		<string>IndieFlower.ttf</string>
 		<string>ProximaNovaLg_Black.ttf</string>
 		<string>ProximaNovaLg_BlackItalic.ttf</string>
-		<string>ProximaNovaLg_Bold_Italic.ttf</string>
 		<string>ProximaNovaLg_Bold.ttf</string>
-		<string>ProximaNovaLg_Light_Italic.ttf</string>
+		<string>ProximaNovaLg_Bold_Italic.ttf</string>
 		<string>ProximaNovaLg_Light.ttf</string>
-		<string>ProximaNovaLg_Regular_Italic.ttf</string>
+		<string>ProximaNovaLg_Light_Italic.ttf</string>
 		<string>ProximaNovaLg_Regular.ttf</string>
-		<string>ProximaNovaLg_Semibold_Italic.ttf</string>
+		<string>ProximaNovaLg_Regular_Italic.ttf</string>
 		<string>ProximaNovaLg_Semibold.ttf</string>
-		<string>ProximaNovaLg_Thin_Italic.ttf</string>
+		<string>ProximaNovaLg_Semibold_Italic.ttf</string>
 		<string>ProximaNovaLg_Thin.ttf</string>
+		<string>ProximaNovaLg_Thin_Italic.ttf</string>
 		<string>Roboto-Black.ttf</string>
 		<string>Roboto-BlackItalic.ttf</string>
 		<string>Roboto-Bold.ttf</string>

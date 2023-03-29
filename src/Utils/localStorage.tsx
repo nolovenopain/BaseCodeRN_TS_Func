@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AccountLogin, UserModel} from '../Redux';
+import {AccountLogin, CartModel, ProductModel, UserModel} from '../Redux';
 import {initialUserState} from '../Redux/Reducers/userReducer';
 
 const USER_SAVED = 'USER_SAVED';
@@ -7,6 +7,7 @@ const FCM_TOKEN = 'FCM_TOKEN';
 const USER_LOCATION = 'USER_LOCATION';
 const LANGUAGE = 'LANGUAGE';
 const ACCOUNT_REMEMBER = 'ACCOUNT_REMEMBER';
+const CART_SAVED = 'CART_SAVED';
 
 export const LocalStorage = {
   getItem: async function (key: string, _default: any) {
@@ -51,6 +52,20 @@ export const LocalStorage = {
           ...JSON.parse(value),
         };
         resolve(userSaved);
+      });
+    });
+  },
+  setCart: (carts: Array<CartModel>) => {
+    LocalStorage.setItem(
+      CART_SAVED,
+      JSON.stringify(carts || ([] as Array<CartModel>)),
+    );
+  },
+  getCart: async () => {
+    return new Promise((resolve, reject) => {
+      LocalStorage.getItem(CART_SAVED, '[]').then(value => {
+        var cartSaved = [...initialUserState.carts, ...JSON.parse(value)];
+        resolve(cartSaved);
       });
     });
   },

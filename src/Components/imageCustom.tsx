@@ -9,20 +9,21 @@ import FastImage, {FastImageProps, ImageStyle} from 'react-native-fast-image';
 import {errorImage} from '../Constants';
 import Config from 'react-native-config';
 
-interface ImageCus extends FastImageProps {
+interface ImageCusProps extends FastImageProps {
   source: any;
   autoHeight?: boolean;
   indicatorSize?: number | 'small' | 'large' | undefined;
   indicatorColor?: string;
 }
 
-export const ImageCus: React.FC<ImageCus> = ({
+export const ImageCus: React.FC<ImageCusProps> = ({
   source = null,
   autoHeight = false,
   style,
   indicatorSize = 'small',
   indicatorColor = 'rgba(0,0,0,0.4)',
   resizeMode = 'contain',
+  ...props
 }) => {
   const genericUri = (uri: string) => {
     // if (!uri.startsWith('http')) {
@@ -34,10 +35,10 @@ export const ImageCus: React.FC<ImageCus> = ({
     return uri;
   };
 
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [width, setWidth] = useState(60);
-  const [height, setHeight] = useState(60);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [width, setWidth] = useState<number>(60);
+  const [height, setHeight] = useState<number>(60);
 
   useEffect(() => {
     let isMounted = true;
@@ -57,8 +58,6 @@ export const ImageCus: React.FC<ImageCus> = ({
 
         ImageRN.prefetch(uri).then(
           status => {
-            console.log(status);
-
             if (autoHeight) {
               ImageRN.getSize(uri, (w, h) => {
                 console.log(w, h);
@@ -86,6 +85,7 @@ export const ImageCus: React.FC<ImageCus> = ({
 
   return isError ? (
     <FastImage
+      {...props}
       source={errorImage}
       style={[
         {
@@ -106,6 +106,11 @@ export const ImageCus: React.FC<ImageCus> = ({
       <ActivityIndicator color={indicatorColor} size={indicatorSize} />
     </View>
   ) : (
-    <FastImage resizeMode={resizeMode} style={[{}, styleCus]} source={source} />
+    <FastImage
+      {...props}
+      resizeMode={resizeMode}
+      style={styleCus}
+      source={source}
+    />
   );
 };

@@ -1,14 +1,15 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {FontCustom, TextCus} from '../../Components';
+import {iconSize5} from '../../Constants';
 import {ApplicationState} from '../../Redux';
 import {Color} from '../color';
-import WaveIndicator from './waveIndicator';
+import PacmanIndicator from './pacmanIndicator';
 
-interface Loading {}
+interface LoadingProps {}
 
-export const Loading: React.FC<Loading> = () => {
+export const Loading: React.FC<LoadingProps> = () => {
   const globalState = useSelector(
     (state: ApplicationState) => state.globalReducer,
   );
@@ -23,7 +24,7 @@ export const Loading: React.FC<Loading> = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <WaveIndicator color={Color.red} size={80} />
+      <PacmanIndicator color={Color.blue} size={iconSize5 * 16} />
       <TextCus
         children={
           globalState.loadingTitle && globalState.loadingTitle != ''
@@ -31,7 +32,7 @@ export const Loading: React.FC<Loading> = () => {
             : ''
         }
         style={{
-          color: Color.red,
+          color: Color.blue,
           fontSize: 18,
           fontFamily: FontCustom.Arial,
         }}

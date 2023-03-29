@@ -1,5 +1,5 @@
 export interface UserModel {
-  Token: string;
+  access_token: string;
   User: {
     username: string;
     firstName: string;

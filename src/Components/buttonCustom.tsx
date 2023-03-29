@@ -1,38 +1,36 @@
 import React, {ReactNode} from 'react';
-import {TouchableOpacity, StyleProp, ViewStyle, TextStyle} from 'react-native';
+import {StyleProp, ViewStyle, TextStyle, Pressable} from 'react-native';
 import {TextCus} from './textCustom';
 
-interface ButtonCus {
+interface ButtonCusProps {
   children: ReactNode;
   onPress(): void;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
   isShowTouch?: boolean;
   styleText?: StyleProp<TextStyle>;
   disabled?: boolean;
+  isOpacity?: boolean;
 }
 
-export const ButtonCus: React.FC<ButtonCus> = ({
+export const ButtonCus: React.FC<ButtonCusProps> = ({
   children,
   onPress,
   style,
   isShowTouch,
   styleText,
   disabled,
-}) => {
+  isOpacity,
+}) => { 
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
+    <Pressable
       onPress={() => onPress()}
-      style={[
-        {
-          padding: 10,
-          alignItems: 'center',
-        },
+      style={({pressed}) => [
         style,
         isShowTouch && {
           borderColor: 'red',
           borderWidth: 1,
         },
+        isOpacity && {opacity: pressed ? 0.5 : 1.0},
       ]}
       disabled={disabled}>
       {children != null && typeof children === 'string' ? (
@@ -49,6 +47,6 @@ export const ButtonCus: React.FC<ButtonCus> = ({
       ) : (
         children
       )}
-    </TouchableOpacity>
+    </Pressable>
   );
 };

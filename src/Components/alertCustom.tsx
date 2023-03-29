@@ -12,12 +12,12 @@ export const AlertCus = {
     askMePress?: Function,
   ) => {
     AlertRN.alert(
-      title || 'Thông báo',
-      mess || 'Bạn có muốn xóa?',
+      title || 'Alert',
+      mess || 'Do you want to delete?',
       (textAskMe != null
         ? [
             {
-              text: textAskMe || 'Nhắc tôi sau',
+              text: textAskMe || 'Ask me later',
               onPress: () => {
                 if (askMePress) askMePress();
               },
@@ -26,13 +26,13 @@ export const AlertCus = {
         : []
       ).concat([
         {
-          text: textButtonCancel || 'Hủy',
+          text: textButtonCancel || 'Cancel',
           onPress: () => {
             if (cancelPress) cancelPress();
           },
         },
         {
-          text: textButtonOK || 'Đồng ý',
+          text: textButtonOK || 'OK',
           onPress: () => {
             if (callback) callback();
           },
@@ -43,8 +43,8 @@ export const AlertCus = {
   },
   Alert: (title: string, mess: string, callback: Function) => {
     AlertRN.alert(
-      title || 'Thông báo',
-      mess ? mess : 'Có lỗi xảy ra, vui lòng thử lại.',
+      title || 'Alert',
+      mess || 'An error occurred. Please try again later !',
       [
         {
           text: 'OK',

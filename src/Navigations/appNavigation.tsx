@@ -10,12 +10,12 @@
 
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme, ParamListBase} from '@react-navigation/native';
 import {navigationRef} from '../Navigations/rootNavigations';
 import {BottomTabStack} from './bottomTabStack';
 import {Color, Loading} from '../Utils';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<ParamListBase>();
 
 const MyTheme = {
   ...DefaultTheme,

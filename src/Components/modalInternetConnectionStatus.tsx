@@ -1,18 +1,18 @@
 import React from 'react';
 import {View} from 'react-native';
 import ReactNativeModal from 'react-native-modal';
-import {width} from '../Constants';
+import {iconSize24, width} from '../Constants';
 import {Color} from '../Utils';
 import {Feather} from './iconCustom';
 import {TextCus} from './textCustom';
 
-interface ModalInternetConnectionStatus {
+interface ModalInternetConnectionStatusProps {
   modalInternetConnectionStatusVisible: boolean;
   isOffline: boolean;
   onBackdropPress(): void;
 }
 
-const ModalInternetConnectionStatus: React.FC<ModalInternetConnectionStatus> =
+const ModalInternetConnectionStatus: React.FC<ModalInternetConnectionStatusProps> =
   ({modalInternetConnectionStatusVisible, isOffline, onBackdropPress}) => {
     return (
       <ReactNativeModal
@@ -34,7 +34,7 @@ const ModalInternetConnectionStatus: React.FC<ModalInternetConnectionStatus> =
           }}>
           <Feather
             name={isOffline ? 'wifi-off' : 'wifi'}
-            size={24}
+            size={iconSize24}
             color={isOffline ? Color.white : 'lightgreen'}
           />
           <TextCus

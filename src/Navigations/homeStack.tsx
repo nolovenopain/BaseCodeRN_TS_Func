@@ -1,9 +1,32 @@
-import React from 'react';
+import React, {useLayoutEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from '../Screens/Home';
-const Stack = createNativeStackNavigator();
+import {
+  getFocusedRouteNameFromRoute,
+  NavigationProp,
+  ParamListBase,
+  Route,
+} from '@react-navigation/native';
 
-export const HomeStack = () => {
+const Stack = createNativeStackNavigator<ParamListBase>();
+
+export const HomeStack = ({
+  navigation,
+  route,
+}: {
+  navigation: NavigationProp<ParamListBase>;
+  route: Partial<Route<string>>;
+}) => {
+  useLayoutEffect(() => {
+    const tabHiddenRoutes = [''];
+
+    if (tabHiddenRoutes.includes(getFocusedRouteNameFromRoute(route)!)) {
+      navigation.setOptions({tabBarStyle: {display: 'none'}});
+    } else {
+      navigation.setOptions({tabBarStyle: {display: 'flex'}});
+    }
+  }, [navigation, route]);
+
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen name="Home" component={Home} />

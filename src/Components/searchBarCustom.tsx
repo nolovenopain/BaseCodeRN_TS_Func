@@ -1,101 +1,102 @@
-import React, {createRef, forwardRef} from 'react';
+import React, {forwardRef} from 'react';
 import {
   StyleProp,
   StyleSheet,
   TextInput,
   TextInputProps,
+  TextStyle,
   TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
-import {Ionicons} from '.';
+import {ButtonCus, Ionicons} from '.';
+import {iconSize18, iconSize5, px5} from '../Constants';
+import {Color} from '../Utils';
 
-interface searchBarCustomProps extends TextInputProps {
+interface SearchBarCusProps extends TextInputProps {
   onTextChange(e: string): void;
   containerStyle?: StyleProp<ViewStyle>;
   searchByIcon?(): void;
-  textInputStyle?: StyleProp<ViewStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
   leftIcon?: boolean;
   rightIcon?: boolean;
 }
 
-export const SearchBarCustom = React.memo<searchBarCustomProps>(
-  forwardRef(
-    (
-      {
-        value,
-        onTextChange,
-        containerStyle,
-        placeholder,
-        placeholderTextColor,
-        searchByIcon,
-        textInputStyle,
-        leftIcon,
-        rightIcon,
-        onSubmitEditing,
-        keyboardType,
-      }: searchBarCustomProps,
-      ref,
-    ) => {
-      const searchBar = createRef<TextInput>();
+export const SearchBarCus = React.memo<SearchBarCusProps>(
+  forwardRef((props: SearchBarCusProps, ref) => {
+    const onChangeText = (txt: string) => {
+      const value =
+        props.keyboardType &&
+        (props.keyboardType == 'numeric' ||
+          props.keyboardType == 'number-pad' ||
+          props.keyboardType == 'phone-pad')
+          ? txt.replace(/[^0-9]/g, '')
+          : txt;
+      props.onTextChange(value);
+    };
 
-      const onChangeText = (txt: string) => {
-        const value =
-          keyboardType &&
-          (keyboardType == 'numeric' ||
-            keyboardType == 'number-pad' ||
-            keyboardType == 'phone-pad')
-            ? txt.replace(/[^0-9]/g, '')
-            : txt;
-        onTextChange(value);
-      };
+    const clearText = () => {
+      props.onTextChange('');
+    };
 
-      const clearText = () => {
-        onTextChange('');
-      };
-
-      return (
-        <View style={[styles.container, containerStyle]}>
-          {leftIcon ? (
-            <TouchableOpacity
-              onPress={() => (searchByIcon ? searchByIcon() : {})}>
-              <Ionicons name="search-outline" size={20} color="gray" />
-            </TouchableOpacity>
-          ) : null}
-          <TextInput
-            ref={searchBar}
-            placeholder={placeholder ? placeholder : ''}
-            placeholderTextColor={
-              placeholderTextColor ? placeholderTextColor : '#ccc'
+    return (
+      <View style={[styles.container, props.containerStyle]}>
+        {props.leftIcon ? (
+          <ButtonCus
+            children={
+              <Ionicons
+                name="search-outline"
+                size={iconSize5 * 4}
+                color={Color.gray}
+              />
             }
-            style={[
-              textInputStyle,
-              {
-                flex: 1,
-                marginLeft: leftIcon ? 5 : 0,
-                marginRight: 5,
-              },
-            ]}
-            onChangeText={onChangeText}
-            value={value}
-            keyboardType={keyboardType}
-            onSubmitEditing={e => (onSubmitEditing ? onSubmitEditing(e) : {})}
+            isOpacity
+            onPress={() => (props.searchByIcon ? props.searchByIcon() : {})}
           />
-          {value && value.trim() != '' ? (
-            <TouchableOpacity onPress={clearText}>
-              <Ionicons name="close" size={18} color="gray" />
-            </TouchableOpacity>
-          ) : null}
-          {rightIcon ? (
-            <TouchableOpacity
-              onPress={() => (searchByIcon ? searchByIcon() : {})}>
-              <Ionicons name="search-outline" size={20} color="gray" />
-            </TouchableOpacity>
-          ) : null}
-        </View>
-      );
-    },
-  ),
+        ) : null}
+        <TextInput
+          {...props}
+          style={[
+            props.textInputStyle,
+            {
+              flex: 1,
+              marginLeft: props.leftIcon ? px5 : 0,
+              marginRight: px5,
+            },
+          ]}
+          onChangeText={onChangeText}
+          value={props.value}
+          keyboardType={props.keyboardType}
+          onSubmitEditing={e =>
+            props.onSubmitEditing ? props.onSubmitEditing(e) : {}
+          }
+        />
+        {props.value && props.value.trim() != '' ? (
+          <ButtonCus
+            children={
+              <Ionicons name="close" size={iconSize18} color={Color.gray} />
+            }
+            isOpacity
+            onPress={clearText}
+          />
+        ) : null}
+        {props.rightIcon ? (
+          <ButtonCus
+            style={{marginLeft: px5 * 1.5}}
+            children={
+              <Ionicons
+                name="search-outline"
+                size={iconSize5 * 4}
+                color={Color.gray}
+              />
+            }
+            isOpacity
+            onPress={() => (props.searchByIcon ? props.searchByIcon() : {})}
+          />
+        ) : null}
+      </View>
+    );
+  }),
   (prevProps, nextProps) => {
     if (prevProps.value === nextProps.value) {
       return true;
@@ -110,8 +111,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingHorizontal: px5 * 2,
+    paddingVertical: px5,
     flexDirection: 'row',
   },
 });

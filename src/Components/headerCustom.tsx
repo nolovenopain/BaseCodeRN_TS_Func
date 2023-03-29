@@ -1,36 +1,39 @@
 import React, {ReactNode} from 'react';
-import {Platform, View} from 'react-native';
+import {Platform, StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {Ionicons} from './iconCustom';
 import LinearGradient from 'react-native-linear-gradient';
-import {headerHeight, statusHeight, width} from '../Constants';
+import {font18, headerHeight, px5, statusHeight, width} from '../Constants';
 import {goBack} from '../Navigations/rootNavigations';
 import {FontCustom, TextCus} from './textCustom';
 import {ButtonCus} from './buttonCustom';
 import {Color} from '../Utils';
 
-interface HeaderCus {
+interface HeaderCusProps {
   isBack?: boolean;
   isClose?: boolean;
   rightComponent?: ReactNode;
   leftComponent?: ReactNode;
-  backgroundGradient?: boolean;
   clearForm?(): void;
   title?: string;
-  styleContainer?: {};
-  styleTitle?: {};
-  styleIconBack?: {};
-  styleIconClose?: {};
-  styleRightComponent?: {};
-  styleLeftComponent?: {};
+  styleContainer?: StyleProp<ViewStyle>;
+  styleTitle?: StyleProp<TextStyle>;
+  styleIconBack?: StyleProp<TextStyle>;
+  styleIconClose?: StyleProp<TextStyle>;
+  styleRightComponent?: StyleProp<ViewStyle>;
+  styleLeftComponent?: StyleProp<ViewStyle>;
   children?: ReactNode;
+  sizeBack?: number;
+  colorBack?: string;
+  sizeClose?: number;
+  colorClose?: string;
+  colorGardients?: (string | number)[];
 }
 
-export const HeaderCus: React.FC<HeaderCus> = ({
+export const HeaderCus: React.FC<HeaderCusProps> = ({
   isBack = false,
   isClose = false,
   rightComponent = null,
   leftComponent = null,
-  backgroundGradient = true,
   clearForm,
   title,
   styleContainer,
@@ -40,6 +43,11 @@ export const HeaderCus: React.FC<HeaderCus> = ({
   styleRightComponent,
   styleLeftComponent,
   children,
+  sizeBack,
+  colorBack,
+  sizeClose,
+  colorClose,
+  colorGardients,
 }) => {
   const goback = () => {
     clearForm ? clearForm() : null;
@@ -53,7 +61,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           height: headerHeight,
           width,
           justifyContent: 'center',
-          marginTop: Platform.OS == 'ios' ? statusHeight : 5,
+          marginTop: Platform.OS == 'ios' ? statusHeight : px5,
         }}>
         {children ? (
           children
@@ -61,10 +69,10 @@ export const HeaderCus: React.FC<HeaderCus> = ({
           <TextCus
             style={[
               {
-                fontSize: 18,
+                fontSize: font18,
                 textAlign: 'center',
                 fontFamily: FontCustom.Roboto_Bold,
-                paddingHorizontal: 60,
+                paddingHorizontal: px5 * 12,
               },
               styleTitle,
             ]}
@@ -86,15 +94,18 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                   backgroundColor: Color.transparent,
                   justifyContent: 'center',
                   alignItems: 'center',
+                  padding: px5 * 2,
                 }}
-                onPress={goback}>
-                <Ionicons
-                  name="chevron-back"
-                  size={25}
-                  color={Color.baseText}
-                  style={styleIconBack}
-                />
-              </ButtonCus>
+                children={
+                  <Ionicons
+                    name="chevron-back"
+                    size={sizeBack}
+                    color={colorBack}
+                    style={styleIconBack}
+                  />
+                }
+                onPress={goback}
+              />
             ) : null}
             {isClose ? (
               <ButtonCus
@@ -103,14 +114,16 @@ export const HeaderCus: React.FC<HeaderCus> = ({
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
-                onPress={goback}>
-                <Ionicons
-                  name="close"
-                  size={25}
-                  color={Color.baseText}
-                  style={styleIconClose}
-                />
-              </ButtonCus>
+                children={
+                  <Ionicons
+                    name="close"
+                    size={sizeClose}
+                    color={colorClose}
+                    style={styleIconClose}
+                  />
+                }
+                onPress={goback}
+              />
             ) : null}
           </View>
           {leftComponent != null && (
@@ -118,7 +131,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
               style={[
                 {
                   position: 'absolute',
-                  left: 10,
+                  left: px5 * 2,
                   justifyContent: 'center',
                 },
                 styleLeftComponent,
@@ -131,7 +144,7 @@ export const HeaderCus: React.FC<HeaderCus> = ({
               style={[
                 {
                   position: 'absolute',
-                  right: 10,
+                  right: px5 * 2,
                   justifyContent: 'center',
                 },
                 styleRightComponent,
@@ -146,11 +159,11 @@ export const HeaderCus: React.FC<HeaderCus> = ({
 
   return (
     <View>
-      {backgroundGradient ? (
+      {colorGardients ? (
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
-          colors={[Color.white, '#516ac5']}
+          colors={colorGardients}
           style={[
             {
               width: '100%',
