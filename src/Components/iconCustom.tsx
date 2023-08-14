@@ -12,9 +12,10 @@ import {default as FontistoRN} from 'react-native-vector-icons/Fontisto';
 import {default as SimpleLineIconsRN} from 'react-native-vector-icons/SimpleLineIcons';
 import {default as OcticonsRN} from 'react-native-vector-icons/Octicons';
 import {default as FoundationRN} from 'react-native-vector-icons/Foundation';
+import {default as ZocialRN} from 'react-native-vector-icons/Zocial';
 import {IconProps} from 'react-native-vector-icons/Icon';
 import {iconSize24} from '../Constants';
-import { Color } from '../Utils';
+import {Color} from '../Utils';
 
 interface IconCusProps extends IconProps {
   type?: string;
@@ -41,6 +42,7 @@ export const IconCus: React.FC<IconCusProps> = ({
     SimpleLineIcons: SimpleLineIconsRN,
     Octicons: OcticonsRN,
     Foundation: FoundationRN,
+    Zocial: ZocialRN,
   };
 
   type = type == null || type == '' ? 'Ionicons' : type;
@@ -103,6 +105,10 @@ var Foundation = (props: IconCusProps) => {
   return <IconCus {...props} type="Foundation" />;
 };
 
+var Zocial = (props: IconCusProps) => {
+  return <IconCus {...props} type="Zocial" />;
+};
+
 export {
   Ionicons,
   AntDesign,
@@ -117,4 +123,5 @@ export {
   SimpleLineIcons,
   Octicons,
   Foundation,
+  Zocial,
 };

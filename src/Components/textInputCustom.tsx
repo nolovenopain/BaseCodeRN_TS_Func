@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  forwardRef,
-  ReactNode,
-  useRef,
-  useEffect,
-  LegacyRef,
-} from 'react';
-import {TextInput} from 'react-native';
+import React, {useState, forwardRef, ReactNode, useRef, useEffect} from 'react';
 import {
   Animated,
   Easing,
@@ -18,7 +10,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {font12, font14, font15, iconSize18, iconSize5, px5} from '../Constants';
+import {font12, font14, iconSize18, iconSize5, px5} from '../Constants';
 import {Color} from '../Utils';
 import {ButtonCus} from './buttonCustom';
 import {Ionicons} from './iconCustom';
@@ -44,6 +36,7 @@ interface TextInputCusProps extends TextInputProps {
   colorChangeOnFocus?: boolean;
   styleLabelContainer?: StyleProp<ViewStyle>;
   styleLabel?: StyleProp<TextStyle>;
+  colorTextValidateError?: string;
 }
 
 export const TextInputCus = React.memo<TextInputCusProps>(
@@ -292,7 +285,8 @@ export const TextInputCus = React.memo<TextInputCusProps>(
     if (
       prevProps.value === nextProps.value &&
       prevProps.validateError === nextProps.validateError &&
-      prevProps.label === nextProps.label
+      prevProps.label === nextProps.label &&
+      prevProps.placeholder === nextProps.placeholder
     ) {
       return true;
     }

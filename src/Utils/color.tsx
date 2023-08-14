@@ -47,6 +47,7 @@ export const Color = {
   inputPlaceHolder: '#909090',
   borderInput: '#E5E5E5',
   backgroundSearchBar: 'whitesmoke',
+  noThumb: '#686868',
 
   materialPrimary: '#6200ee',
   materialPrimaryVariants: '#3700b3',

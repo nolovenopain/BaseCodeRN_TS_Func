@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-  Image,
   Modal,
   ScrollView,
   NativeScrollEvent,
@@ -9,16 +8,17 @@ import {
 } from 'react-native';
 import {Image as ImageCP} from 'react-native-image-crop-picker';
 import ImageZoom from 'react-native-image-pan-zoom';
-import {height, width} from '../Constants';
+import {height, iconSize24, px5, width} from '../Constants';
 import {ButtonCus} from './buttonCustom';
 import {Ionicons} from './iconCustom';
+import {ImageCus} from './imageCustom';
 
 interface ShowImage {
-  image: ImageCP | null;
+  image: ImageCP | number | string | null | undefined;
   modalShowImageVisible: boolean;
   closeModalShowImg(): void;
-  setShowImg(img: ImageCP | null): void;
-  deleteImg?(img: ImageCP | null): void;
+  setShowImg?(img: ImageCP | number | string | null | undefined): void;
+  deleteImg?(img: ImageCP | number | string | null | undefined): void;
 }
 
 export const ShowImage: React.FC<ShowImage> = ({
@@ -35,15 +35,15 @@ export const ShowImage: React.FC<ShowImage> = ({
   };
 
   const deleteImage = () => {
-    deleteImg ? deleteImg(image) : null;
+    deleteImg && typeof image != 'number' ? deleteImg(image) : null;
     closeModalShowImg();
-    setShowImg(null);
+    setShowImg ? setShowImg(null) : null;
     setShowControls(false);
   };
 
   const goBack = () => {
     closeModalShowImg();
-    setShowImg(null);
+    setShowImg ? setShowImg(null) : null;
     setShowControls(false);
   };
 
@@ -67,49 +67,62 @@ export const ShowImage: React.FC<ShowImage> = ({
           }
         }}
         showsVerticalScrollIndicator={false}>
-        <ButtonCus
-          children={
-            <ImageZoom
-              cropWidth={width}
-              cropHeight={height}
-              imageWidth={width}
-              imageHeight={height}>
-              <Image
-                source={{uri: image?.path}}
-                style={{width: '100%', height: '100%'}}
-                resizeMode="contain"
-              />
-            </ImageZoom>
-          }
-          onPress={handleShowControls}
-        />
+        <TouchableWithoutFeedback onPress={handleShowControls}>
+          <ImageZoom
+            cropWidth={width}
+            cropHeight={height}
+            imageWidth={width}
+            imageHeight={height}>
+            <ImageCus
+              source={
+                typeof image === 'number'
+                  ? image
+                  : {uri: typeof image === 'string' ? image : image?.path}
+              }
+              style={{width: '100%', height: '100%'}}
+              resizeMode="contain"
+            />
+          </ImageZoom>
+        </TouchableWithoutFeedback>
       </ScrollView>
       {showControls && (
         <ButtonCus
           style={{
-            paddingBottom: 12,
+            paddingBottom: px5 * 2,
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: 5,
+            marginLeft: px5 * 3,
             position: 'absolute',
-            top: 30,
+            top: px5 * 12,
           }}
-          children={<Ionicons name="close-circle" size={25} color="white" />}
+          children={
+            <Ionicons
+              name="close-circle"
+              size={(iconSize24 * 25) / 24}
+              color="white"
+            />
+          }
           onPress={goBack}
         />
       )}
       {showControls && deleteImg && (
         <ButtonCus
           style={{
-            paddingBottom: 12,
+            paddingBottom: px5 * 2,
             justifyContent: 'center',
             alignItems: 'center',
-            marginLeft: 5,
+            marginLeft: px5 * 3,
             position: 'absolute',
-            top: 30,
-            right: 15,
+            top: px5 * 12,
+            right: px5 * 3,
           }}
-          children={<Ionicons name="trash" size={20} color="white" />}
+          children={
+            <Ionicons
+              name="trash"
+              size={(iconSize24 * 22) / 24}
+              color="white"
+            />
+          }
           onPress={deleteImage}
         />
       )}

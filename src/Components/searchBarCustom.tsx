@@ -5,7 +5,6 @@ import {
   TextInput,
   TextInputProps,
   TextStyle,
-  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -98,7 +97,10 @@ export const SearchBarCus = React.memo<SearchBarCusProps>(
     );
   }),
   (prevProps, nextProps) => {
-    if (prevProps.value === nextProps.value) {
+    if (
+      prevProps.value === nextProps.value &&
+      prevProps.placeholder === nextProps.placeholder
+    ) {
       return true;
     }
     return false;

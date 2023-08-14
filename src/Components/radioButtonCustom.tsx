@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleProp, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 import {Color} from '../Utils';
 import {ButtonCus} from './buttonCustom';
 import {TextCus} from './textCustom';
+import {px5} from '../Constants';
 
 interface RadioButtonCusProps {
   label: string;
@@ -10,6 +11,7 @@ interface RadioButtonCusProps {
   selectedId: number | string;
   radioClick(): void;
   styleContainer?: StyleProp<ViewStyle>;
+  styleText?: StyleProp<TextStyle>;
   selectedColor: string;
 }
 
@@ -20,27 +22,29 @@ export const RadioButtonCus: React.FC<RadioButtonCusProps> = ({
   radioClick,
   styleContainer,
   selectedColor,
+  styleText,
 }) => {
   return (
     <View
       style={[{flexDirection: 'row', alignItems: 'center'}, styleContainer]}>
       <ButtonCus
         style={{
-          width: 20,
-          height: 20,
-          borderRadius: 10,
-          borderWidth: 1,
+          width: px5 * 4,
+          height: px5 * 4,
+          borderRadius: px5 * 2,
+          borderWidth: px5 / 5,
           borderColor: id == selectedId ? selectedColor : Color.gray,
           justifyContent: 'center',
           alignItems: 'center',
+          backgroundColor: Color.white,
         }}
         children={
           id == selectedId ? (
             <View
               style={{
-                width: 12,
-                height: 12,
-                borderRadius: 6,
+                width: px5 * 2,
+                height: px5 * 2,
+                borderRadius: 100,
                 backgroundColor: selectedColor,
               }}
             />
@@ -51,11 +55,13 @@ export const RadioButtonCus: React.FC<RadioButtonCusProps> = ({
       />
       <TextCus
         children={label}
-        style={{
-          marginLeft: 5,
-          color: id == selectedId ? selectedColor : Color.gray,
-          fontSize: 13,
-        }}
+        style={[
+          {
+            marginLeft: px5,
+            color: id == selectedId ? selectedColor : Color.gray,
+          },
+          styleText,
+        ]}
       />
     </View>
   );

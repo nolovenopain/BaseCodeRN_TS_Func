@@ -12,6 +12,12 @@ export interface ToggleLoading {
   loadingTitle: string;
 }
 
+export interface ToggleLanguage {
+  readonly type: 'TOGGLE_LANGUAGE';
+  payload: string;
+  isSaveLocalStore: boolean;
+}
+
 export interface GlobalErrorAction {
   readonly type: 'ON_GLOBAL_ERROR';
   payload: any;
@@ -20,6 +26,7 @@ export interface GlobalErrorAction {
 export type GlobalAction =
   | CheckInternetConnection
   | ToggleLoading
+  | ToggleLanguage
   | GlobalErrorAction;
 
 export const onCheckInternetConnection = (
@@ -56,6 +63,25 @@ export const onToggleLoading = (
         type: 'TOGGLE_LOADING',
         payload: toggleLoading,
         loadingTitle,
+      });
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: 'ON_GLOBAL_ERROR',
+        payload: error,
+      });
+    }
+  };
+};
+
+export const onToggleLanguage = (lang: string, isSaveLocalStore: boolean) => {
+  isSaveLocalStore = isSaveLocalStore == null ? false : isSaveLocalStore;
+  return async (dispatch: Dispatch<GlobalAction>) => {
+    try {
+      dispatch({
+        type: 'TOGGLE_LANGUAGE',
+        payload: lang,
+        isSaveLocalStore,
       });
     } catch (error) {
       console.log(error);

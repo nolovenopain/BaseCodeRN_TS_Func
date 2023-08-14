@@ -14,3 +14,4 @@ export * from './showImage';
 export * from './checkBoxCustom';
 export * from './skeletonCustom';
 export * from './modalCustom';
+export * from './noThumb';

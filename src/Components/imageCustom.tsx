@@ -6,14 +6,17 @@ import {
   View,
 } from 'react-native';
 import FastImage, {FastImageProps, ImageStyle} from 'react-native-fast-image';
-import {errorImage} from '../Constants';
+import {px5} from '../Constants';
 import Config from 'react-native-config';
+import {NoThumb} from './noThumb';
+import {Color} from '../Utils';
 
 interface ImageCusProps extends FastImageProps {
   source: any;
   autoHeight?: boolean;
   indicatorSize?: number | 'small' | 'large' | undefined;
   indicatorColor?: string;
+  iconSizeNoImg?: number;
 }
 
 export const ImageCus: React.FC<ImageCusProps> = ({
@@ -23,22 +26,29 @@ export const ImageCus: React.FC<ImageCusProps> = ({
   indicatorSize = 'small',
   indicatorColor = 'rgba(0,0,0,0.4)',
   resizeMode = 'contain',
+  iconSizeNoImg,
   ...props
 }) => {
   const genericUri = (uri: string) => {
-    // if (!uri.startsWith('http')) {
-    //     if (uri.startsWith('/')) {
-    //         uri = uri.replace('/', '');
-    //     }
-    //     uri = Config.DEV_BASE_URL + uri;
-    // }
+    if (!uri.startsWith('https')) {
+      if (uri.startsWith('/')) {
+        uri = uri.replace('/', '');
+      } else if (
+        Config.IMAGE_BASE_URL &&
+        uri.startsWith(Config.IMAGE_BASE_URL)
+      ) {
+        uri = uri.replace(Config.IMAGE_BASE_URL, '');
+      }
+      uri = Config.IMAGE_BASE_URL + uri;
+    }
     return uri;
   };
 
+  const [src, setSrc] = useState<any>(source);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
-  const [width, setWidth] = useState<number>(60);
-  const [height, setHeight] = useState<number>(60);
+  const [width, setWidth] = useState<number>(px5 * 12);
+  const [height, setHeight] = useState<number>(px5 * 12);
 
   useEffect(() => {
     let isMounted = true;
@@ -46,15 +56,17 @@ export const ImageCus: React.FC<ImageCusProps> = ({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [source]);
 
   const loading = () => {
     try {
       if (source.constructor == Number) {
         setIsLoaded(true);
         setIsError(false);
+        setSrc(source);
       } else if (source.uri.constructor == String) {
         var uri = genericUri(source.uri);
+        setSrc({uri, priority: FastImage.priority.high});
 
         ImageRN.prefetch(uri).then(
           status => {
@@ -84,16 +96,14 @@ export const ImageCus: React.FC<ImageCusProps> = ({
   var styleCus = StyleSheet.flatten<ImageStyle>(style);
 
   return isError ? (
-    <FastImage
-      {...props}
-      source={errorImage}
-      style={[
-        {
-          width: styleCus.width,
-          height: styleCus.height,
-        },
-        styleCus,
-      ]}
+    <NoThumb
+      backgroundColor={Color.borderInput}
+      styleViewCus={{
+        width: styleCus.width,
+        height: styleCus.height,
+        ...styleCus,
+      }}
+      iconSize={iconSizeNoImg}
     />
   ) : !isLoaded ? (
     <View
@@ -110,7 +120,7 @@ export const ImageCus: React.FC<ImageCusProps> = ({
       {...props}
       resizeMode={resizeMode}
       style={styleCus}
-      source={source}
+      source={src}
     />
   );
 };

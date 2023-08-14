@@ -1,4 +1,6 @@
 import {Alert as AlertRN} from 'react-native';
+import {store} from '../Redux';
+import {translate} from '../Language';
 
 export const AlertCus = {
   Confirm: (
@@ -12,12 +14,18 @@ export const AlertCus = {
     askMePress?: Function,
   ) => {
     AlertRN.alert(
-      title || 'Alert',
-      mess || 'Do you want to delete?',
+      title || translate('alert', store.getState().globalReducer.language),
+      mess ||
+        translate('doUWantToDel', store.getState().globalReducer.language),
       (textAskMe != null
         ? [
             {
-              text: textAskMe || 'Ask me later',
+              text:
+                textAskMe ||
+                translate(
+                  'askMeLater',
+                  store.getState().globalReducer.language,
+                ),
               onPress: () => {
                 if (askMePress) askMePress();
               },
@@ -26,7 +34,9 @@ export const AlertCus = {
         : []
       ).concat([
         {
-          text: textButtonCancel || 'Cancel',
+          text:
+            textButtonCancel ||
+            translate('cancel', store.getState().globalReducer.language),
           onPress: () => {
             if (cancelPress) cancelPress();
           },
@@ -43,8 +53,8 @@ export const AlertCus = {
   },
   Alert: (title: string, mess: string, callback: Function) => {
     AlertRN.alert(
-      title || 'Alert',
-      mess || 'An error occurred. Please try again later !',
+      title || translate('alert', store.getState().globalReducer.language),
+      mess || translate('anErrOcc', store.getState().globalReducer.language),
       [
         {
           text: 'OK',

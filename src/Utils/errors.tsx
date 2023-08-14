@@ -1,37 +1,39 @@
 import {AlertCus} from '../Components';
+import {translate} from '../Language';
+import {store} from '../Redux';
 
 export const sessionExpired = () => {
-  return "Your session is expired. Please log in again";
+  return translate('sessionExpired', store.getState().globalReducer.language);
 };
 
 export const badRequest = () => {
-  return "Bad request";
+  return translate('otherError', store.getState().globalReducer.language);
 };
 
 export const serverError = () => {
-  return "Internal server error";
+  return translate('otherError', store.getState().globalReducer.language);
 };
 
 export const notFound = () => {
-  return "Data not found";
+  return translate('otherError', store.getState().globalReducer.language);
 };
 
 export const notPermission = () => {
-  return "You don't have permission to access this resource";
+  return translate('notPermission', store.getState().globalReducer.language);
 };
 
 export const missingToken = () => {
-  return "Missing token";
+  return translate('otherError', store.getState().globalReducer.language);
 };
 
 export const otherError = () => {
-  return "Data not found / Your access is denied";
+  return translate('otherError', store.getState().globalReducer.language);
 };
 
 export const noInternetAlert = () => {
   AlertCus.Alert(
-    "Network error",
-    "Check your internet connection and try again",
+    translate('noInternetTitle', store.getState().globalReducer.language),
+    translate('noInternetContent', store.getState().globalReducer.language),
     () => {},
   );
 };

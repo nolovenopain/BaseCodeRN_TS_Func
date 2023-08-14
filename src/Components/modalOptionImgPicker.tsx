@@ -2,14 +2,14 @@ import React from 'react';
 import {
   Modal,
   StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {width} from '../Constants';
+import {px5, width} from '../Constants';
 import {Color} from '../Utils';
 import {ButtonCus} from './buttonCustom';
 import {FontCustom, TextCus} from './textCustom';
+import {translate} from '../Language';
+import {store} from '../Redux';
 
 interface ModalOptionImgPickerCusProps {
   modalPickerVisible: boolean;
@@ -41,7 +41,10 @@ const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCusProps> = ({
                       style={styles.takePhoto}
                       children={
                         <TextCus
-                          children="Chụp ảnh"
+                          children={translate(
+                            'takePhoto',
+                            store.getState().globalReducer.language,
+                          )}
                           style={styles.modalImageText}
                         />
                       }
@@ -53,7 +56,10 @@ const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCusProps> = ({
                       style={styles.libraryPhoto}
                       children={
                         <TextCus
-                          children="Chọn ảnh có sẵn"
+                          children={translate(
+                            'pickFromLib',
+                            store.getState().globalReducer.language,
+                          )}
                           style={styles.modalImageText}
                         />
                       }
@@ -64,7 +70,13 @@ const ModalOptionImgPickerCus: React.FC<ModalOptionImgPickerCusProps> = ({
                   <ButtonCus
                     style={styles.cancel}
                     children={
-                      <TextCus children="Huỷ" style={styles.modalImageText} />
+                      <TextCus
+                        children={translate(
+                          'cancel',
+                          store.getState().globalReducer.language,
+                        )}
+                        style={styles.modalImageText}
+                      />
                     }
                     isOpacity
                     onPress={closeModalPicker}
@@ -87,40 +99,40 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.4)',
     flex: 1,
     justifyContent: 'flex-end',
-    paddingBottom: 20,
+    paddingBottom: px5 * 10,
   },
   modalPicker: {
-    height: 160,
+    height: px5 * 32,
     width: width / 1.1,
   },
   imgPicker: {
-    height: 100,
+    height: px5 * 20,
     backgroundColor: '#fff',
-    borderRadius: 10,
-    marginBottom: 10,
+    borderRadius: px5,
+    marginBottom: px5 * 2,
     justifyContent: 'center',
     alignItems: 'center',
   },
   cancel: {
-    height: 50,
+    height: px5 * 10,
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: px5,
     justifyContent: 'center',
     alignItems: 'center',
   },
   takePhoto: {
-    height: 50,
+    height: px5 * 10,
     justifyContent: 'center',
     alignItems: 'center',
     width: width / 1.1,
   },
   underlinePicker: {
     width: width / 1.3,
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderColor: Color.borderGray,
   },
   libraryPhoto: {
-    height: 50,
+    height: px5 * 10,
     justifyContent: 'center',
     alignItems: 'center',
     width: width / 1.1,

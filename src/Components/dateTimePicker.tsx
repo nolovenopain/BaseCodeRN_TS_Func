@@ -2,6 +2,8 @@ import React, {forwardRef, useImperativeHandle, useState} from 'react';
 import DateTimePicker, {
   DateTimePickerProps,
 } from 'react-native-modal-datetime-picker';
+import {translate} from '../Language';
+import {store} from '../Redux';
 
 export interface DateTimePickerModalProps extends DateTimePickerProps {
   confirmDate(date: Date): void;
@@ -33,8 +35,14 @@ export const DateTimePickerModal = forwardRef(
         isVisible={isDatePickerVisible}
         onConfirm={handleDateConfirm}
         onCancel={hideDatePicker}
-        confirmTextIOS="Confirm"
-        cancelTextIOS="Cancel"
+        confirmTextIOS={translate(
+          'confirm',
+          store.getState().globalReducer.language,
+        )}
+        cancelTextIOS={translate(
+          'cancel',
+          store.getState().globalReducer.language,
+        )}
       />
     );
   },

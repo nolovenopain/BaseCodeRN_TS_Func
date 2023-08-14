@@ -49,7 +49,7 @@ export const RootComponent = () => {
 
   const getInfo = async () => {
     const user = (await LocalStorage.getUserSaved()) as UserModel;
-    user.Token && dispatch(onUpdateUser(user, false));
+    user.access_token && dispatch(onUpdateUser(user, false));
 
     const accountLogin =
       (await LocalStorage.getAccountRemember()) as AccountLogin;
